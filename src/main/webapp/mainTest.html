@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .el-header {
+            background-color: #B3C0D1;
+            color: #333;
+            line-height: 60px;
+        }
+
+        .el-row {
+            margin-bottom: 20px;
+        }
+
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .row-bg {
+            padding: 10px 0;
+            background-color: #f9fafc;
+        }
+
+        .el-aside {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+    <el-container style="height: 700px; border: 1px solid #eee">
+        <!--        <el-aside width="220px" style="background-color: rgb(238, 241, 246)">-->
+        <!--            <el-menu :default-opened="1" >-->
+        <!--                <el-submenu index="1">-->
+        <!--                    <template slot="title"><i class="el-icon-message"></i>导航一</template>-->
+        <!--                    <el-menu-item-group>-->
+        <!--                        <template slot="title">分组一</template>-->
+        <!--                        <el-menu-item index="1-1"  @click="routhTo('/login')">选项1</el-menu-item>-->
+        <!--                        <el-menu-item index="1-2" @click="routhTo('/main')">选项2</el-menu-item>-->
+        <!--                    </el-menu-item-group>-->
+        <!--                    <el-menu-item-group title="分组2">-->
+        <!--                        <el-menu-item index="1-3">选项3</el-menu-item>-->
+        <!--                    </el-menu-item-group>-->
+        <!--                    <el-submenu index="1-4">-->
+        <!--                        <template slot="title">选项4</template>-->
+        <!--                        <el-menu-item index="1-4-1">选项4-1</el-menu-item>-->
+        <!--                    </el-submenu>-->
+        <!--                </el-submenu>-->
+        <!--                <el-submenu index="2">-->
+        <!--                    <template slot="title"><i class="el-icon-menu"></i>导航二</template>-->
+        <!--                    <el-menu-item-group>-->
+        <!--                        <template slot="title">分组一</template>-->
+        <!--                        <el-menu-item index="2-1">选项1</el-menu-item>-->
+        <!--                        <el-menu-item index="2-2">选项2</el-menu-item>-->
+        <!--                    </el-menu-item-group>-->
+        <!--                    <el-menu-item-group title="分组2">-->
+        <!--                        <el-menu-item index="2-3">选项3</el-menu-item>-->
+        <!--                    </el-menu-item-group>-->
+        <!--                    <el-submenu index="2-4">-->
+        <!--                        <template slot="title">选项4</template>-->
+        <!--                        <el-menu-item index="2-4-1">选项4-1</el-menu-item>-->
+        <!--                    </el-submenu>-->
+        <!--                </el-submenu>-->
+        <!--                <el-submenu index="3">-->
+        <!--                    <template slot="title"><i class="el-icon-setting"></i>导航三</template>-->
+        <!--                    <el-menu-item-group>-->
+        <!--                        <template slot="title">分组一</template>-->
+        <!--                        <el-menu-item index="3-1">选项1</el-menu-item>-->
+        <!--                        <el-menu-item index="3-2">选项2</el-menu-item>-->
+        <!--                    </el-menu-item-group>-->
+        <!--                    <el-menu-item-group title="分组2">-->
+        <!--                        <el-menu-item index="3-3">选项3</el-menu-item>-->
+        <!--                    </el-menu-item-group>-->
+        <!--                    <el-submenu index="3-4">-->
+        <!--                        <template slot="title">选项4</template>-->
+        <!--                        <el-menu-item index="3-4-1">选项4-1</el-menu-item>-->
+        <!--                    </el-submenu>-->
+        <!--                </el-submenu>-->
+        <!--            </el-menu>-->
+        <!--        </el-aside>-->
+        <el-container>
+            <!--            <el-row>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple">-->
+            <!--                        <el-button type="primary">首页</el-button>-->
+            <!--                        &lt;!&ndash;                    <el-button type="danger" @click="routhTo('/main/user')">用户管理</el-button>&ndash;&gt;-->
+            <!--                    </div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple-light">-->
+            <!--                        <el-button type="primary">角色管理</el-button>-->
+            <!--                    </div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple">-->
+            <!--                        <el-button type="primary">角色管理</el-button>-->
+
+            <!--                    </div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple-light"></div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple"></div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple-light"></div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple"></div>-->
+            <!--                </el-col>-->
+            <!--                <el-col :span="2">-->
+            <!--                    <div class="grid-content bg-purple-light"></div>-->
+            <!--                </el-col>-->
+            <!--            </el-row>-->
+            <el-header style="text-align: right; font-size: 12px">
+
+                <el-button type="primary" plain style="float: left ; position: relative ;top: 10px"
+                           @click="addEmployeeButton">添加
+                </el-button>
+                <!--行内搜索表单-->
+                <el-form :inline="true"
+                         :model="queryInfo"
+                         label-position="left" class="demo-form-inline"
+                         style="width:500px; height: 60px; position:absolute; margin: auto;float: left">
+                    <el-form-item label="性别" style="height:100%; ">
+                        <el-select v-model="queryInfo.sex" placeholder="性别"
+                                   style="width:100px; height: 60px; position: relative ;top: 10px">
+                            <el-option label="男" value="male"></el-option>
+                            <el-option label="女" value="female"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="员工名称" style="height:100%">
+                        <el-input v-model="queryInfo.user" placeholder="员工名称"
+                                  style="width:120px; height:60px;float: left ; position: relative ;top: 10px"></el-input>
+                    </el-form-item>
+                    <el-form-item style="float: left; position: absolute; right: -100px; top: 10px">
+                        <el-button type="primary" @click="query">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                <div style="float: left; position: relative; right: -810px">
+                    <span style="text-align: center; font-size: 30px; position: relative; right: 30px">{{this.selfInfo.name}}, 欢迎您</span>
+                </div>
+                <el-button type="danger" round @click="logout">退出登录</el-button>
+
+            </el-header>
+
+
+            <el-dialog
+                    title="添加员工"
+                    :visible.sync="dialogVisible"
+                    width="30%">
+                <el-form ref="form" :model="newEmpInfo" label-width="80px">
+                    <el-form-item label="员工名称">
+                        <el-input v-model="newEmpInfo.name"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="员工密码">
+                        <el-input v-model="newEmpInfo.passwd" value="123456"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="出生日期">
+                        <el-col>
+                            <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
+                                            v-model="newEmpInfo.birth" style="width: 100%;"></el-date-picker>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="性别">
+                        <el-radio-group v-model="newEmpInfo.sex">
+                            <el-radio label="男"></el-radio>
+                            <el-radio label="女"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="联系方式">
+                        <el-input v-model="newEmpInfo.tel"></el-input>
+                    </el-form-item>
+                    <el-form-item label="身份证号">
+                        <el-input v-model="newEmpInfo.cardId" placeholder="身份证号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系地址">
+                        <el-input v-model="newEmpInfo.address"></el-input>
+                    </el-form-item>
+                    <el-form-item label="职位" :data="jobs">
+                        <el-select v-model="newEmpInfo.job_name" placeholder="请选择员工职位">
+                            <el-option v-for="job in jobs" :value="job">{{job}}</el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="submitEmployee">添加</el-button>
+                        <el-button @click="dialogVisible = false">取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+
+            <el-dialog title="员工信息"
+                       :visible.sync="detailInfoVisible"
+                       width="30%">
+                <el-form ref="form" :model="detailInfoData" label-width="80px">
+                    <el-form-item label="员工名称">
+                        <el-input v-model="detailInfoData.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="员工密码">
+                        <el-input v-model="detailInfoData.passwd" value="123456"></el-input>
+                    </el-form-item>
+                    <el-form-item label="出生日期">
+                        <el-col>
+                            <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
+                                            v-model="detailInfoData.birth" style="width: 100%;"></el-date-picker>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="性别">
+                        <el-radio-group v-model="detailInfoData.sex">
+                            <el-radio label="男"></el-radio>
+                            <el-radio label="女"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="奖金率">
+                        <el-input v-model="detailInfoData.rate"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系方式">
+                        <el-input v-model="detailInfoData.tel"></el-input>
+                    </el-form-item>
+                    <el-form-item label="身份证号">
+                        <el-input v-model="detailInfoData.cardId" placeholder="身份证号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系地址">
+                        <el-input v-model="detailInfoData.address"></el-input>
+                    </el-form-item>
+                    <el-form-item label="职位" :data="jobs">
+                        <el-select v-model="detailInfoData.job_name" placeholder="请选择员工职位">
+                            <el-option v-for="job in jobs" :value="job">{{job}}</el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="reviseEmp">提交</el-button>
+                        <el-button @click="detailInfoVisible = false">取消</el-button>
+                    </el-form-item>
+                </el-form>
+                <!--                <el-descriptions title="垂直带边框列表" direction="vertical" :column="4" border>-->
+                <!--                    <el-descriptions-item label="用户名">{{detailInfoData.id}}</el-descriptions-item>-->
+                <!--                    <el-descriptions-item label="手机号">18100000000</el-descriptions-item>-->
+                <!--                    <el-descriptions-item label="居住地" :span="2">苏州市</el-descriptions-item>-->
+                <!--                    <el-descriptions-item label="备注">-->
+                <!--                        <el-tag size="small">学校</el-tag>-->
+                <!--                    </el-descriptions-item>-->
+                <!--                    <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>-->
+                <!--                </el-descriptions>-->
+            </el-dialog>
+
+
+            <el-main>
+                <!--stripe: 斑马纹, border: 边框-->
+                <el-table :data="AllEmpInfo" stripe height="100%"  @row-click="rowDetail" slot-scope="scope">
+                    <el-table-column type="index" width="80" align="center">
+                    </el-table-column>
+                    <el-table-column prop="name" label="姓名" width="120" align="center" sortable>
+                    </el-table-column>
+                    <el-table-column prop="id" label="工号" width="90" align="center" sortable>
+                    </el-table-column>
+                    <el-table-column prop="sex" label="性别" width="80" align="center" sortable>
+                    </el-table-column>
+                    <el-table-column prop="tel" label="电话号码" width="200" align="center">
+                    </el-table-column>
+                    <el-table-column prop="birth" label="出生日期" width="150" align="center" sortable>
+                    </el-table-column>
+                    <el-table-column prop="address" label="地址" align="center">
+                    </el-table-column>
+                    <el-table-column prop="job_name" label="职位" width="150" align="center">
+                    </el-table-column>
+                    <el-table-column align="center" label="查看" width="120">
+                        <template slot-scope="scope">
+                            <el-button type="success" @click="detailInfo(scope.row)">详细信息</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column align="center" label="操作" width="120">
+                        <template slot-scope="scope">
+                            <!--                            <el-button type="primary" @click="detailInfo(scope.row)">修改</el-button>-->
+                            <el-button type="danger" @click.stop="success('ddd')">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-main>
+        </el-container>
+    </el-container>
+
+</div>
+
+
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#main",
+        mounted() {
+            this.selectAll();
+        },
+        methods: {
+            query() {
+                console.log(this.queryInfo);
+            },
+            logout() {
+                sessionStorage.clear();
+            },
+            rowDetail(row, event, column) {
+                this.detailInfo(row);
+            },
+            detailInfo(row) {
+                this.detailInfoVisible = true;
+                this.detailInfoData = row;
+                // console.log(row)
+                console.log(this.detailInfoData);
+            },
+            submitEmployee() {
+                // console.log(this.newEmpInfo);
+                // let birthDate = new Date(this.newEmpInfo.birth);
+                // let nowDate = new Date();
+                // this.newEmpInfo.age = nowDate.getFullYear() - birthDate.getFullYear();
+
+                // 新建员工不需要id
+                // this.newEmpInfo.id = Number(this.newEmpInfo.id);
+
+                this.newEmpInfo.dep_id = this.selfInfo.dep_id;
+
+                // 提交数据
+                axios.post('http://localhost/dep/addEmp', this.newEmpInfo).then(res => {
+                    if (res.data.msg === 'success') {
+                        this.success('添加成功,  ' + '员工号为: ' + res.data.id);
+                    }
+                    console.log(res.data);
+                });
+
+                // axios.get("http://localhost/dep/selectJobIdByName?job_name=" + this.newEmpInfo.job_name).then(res => {
+                //     this.newEmpInfo.job_id = res.data;
+                // });
+                // var _this = this;
+                // axios.post("http://localhost/addEmpServlet", _this.newEmpInfo).then(function (resp) {
+                //     if (resp.data === 'success') {
+                //         _this.success("添加成功!")
+                //     } else {
+                //         _this.errorMessage("添加失败")
+                //     }
+                // })
+
+                this.dialogVisible = false;
+
+                // 重新查询数据
+                this.selectAll();
+            },
+            reviseEmp() {
+                console.log(this.detailInfoData);
+                axios.post('http://localhost/dep/updateEmp', this.detailInfoData).then(res => {
+                    if (res.data.msg === 'success') {
+                        this.success('修改成功');
+                    }
+                });
+                this.detailInfoVisible = false;
+            },
+            addEmployeeButton() {
+                // // 获取职位信息
+                // axios.get("http://localhost/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
+                //     this.jobs = res.data.slice(1);
+                // });
+                // 显示对话框
+                this.dialogVisible = true;
+            },
+            success(msg) {
+                this.$message({
+                    message: msg,
+                    type: 'success'
+                });
+            },
+            errorMessage(msg) {
+                this.$message.error(msg);
+            },
+            selectAll() {
+                axios.get("http://localhost/dep/selectAllEmp?dep_id=" + this.selfInfo.dep_id).then(resp => {
+                    this.AllEmpInfo = resp.data;
+                })
+                // 获取职位信息
+                axios.get("http://localhost/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
+                    this.jobs = res.data.slice(1);
+                });
+                // axios({
+                //     method:"get",
+                //     url:"http://localhost/selectAllEmpServlet?dep_id=" + _this.selfInfo.dep_id
+                // }).then(function (resp){
+                //     console.log(resp.data)
+                // })
+            }
+
+        },
+        data() {
+            const item = {
+                address: "北华大学北校区",
+                birth: "2020-04-10",
+                cardId: "318153987998798799",
+                dep_id: 2,
+                id: 8002,
+                job_id: 10,
+                job_name: "人事部主管",
+                manager_id: "8002",
+                name: "范明俊",
+                passwd: "020416",
+                rate: 0.6,
+                sex: "男",
+                tel: "15464656546"
+            };
+            return {
+                selfInfo: {
+                    name: '测试人',
+                    dep_id: 2,
+                },
+                // 所有员工信息
+                AllEmpInfo: [item],
+                // 行内表单数据, 检索信息
+                queryInfo: {
+                    user: '',
+                    sex: ''
+                },
+                // 添加员工对话框是否展示
+                dialogVisible: false,
+                detailInfoVisible: false,
+                detailInfoData: {
+                    name: 'test',
+                },
+                // 表单数据
+                newEmpInfo: {
+                    id: '',
+                    name: '',
+                    passwd: '123456',
+                    age: '',
+                    sex: '',
+                    cardId: '',
+                    birth: '',
+                    address: '',
+                    tel: '',
+                    job_id: '',
+                    dep_id: ''
+                },
+                jobs: [1, 2, 3, 4, 5],
+                AllEmpInfo1: Array(20).fill(item)
+            }
+        }
+    })
+</script>
+
+
+</body>
+</html>

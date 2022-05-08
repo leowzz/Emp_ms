@@ -1,0 +1,13 @@
+package com.leo.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public interface ManagerService {
+    List<HashMap<String, String>> selectAllDepInfo();
+    
+    boolean login(String id, String passwd);
+    
+    boolean changePasswd(String name, String passwd);
+}

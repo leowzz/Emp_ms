@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人事管理-登录</title>
+</head>
+<body style="background: #B3D8FF">
+<div id="loginForm">
+    <div id="title"><span style=""></span></div>
+    <el-card class="box-card"
+             style="width: 400px;
+                    height: 360px;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;">
+        <div slot="header" class="clearfix">
+            <span style="text-align: left; font-size: 30px">人事工资管理系统</span>
+            <label style="position: relative; left: 36px;"><span>管理员</span>
+                <el-switch v-model="manager" @change="clickManager"
+                           style="position: relative; left:3px;right: -50px"></el-switch>
+            </label>
+            <!--            <el-form-item label="即时配送" style="background: #8c939d">-->
+            <!--                <el-switch v-model="manager"></el-switch>-->
+            <!--            </el-form-item>-->
+        </div>
+        <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px"
+                 class="demo-userForm"
+                 style="width: 100%; height: 100%;  position: relative; left: -30px; top: 32px">
+            <el-form-item :label="idType" prop="id">
+                <el-input type="text" v-model="userForm.id" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="passwd">
+                <el-input type="password" v-model="userForm.passwd" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
+                <el-button @click="resetForm('userForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </el-card>
+</div>
+
+
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#loginForm",
+        mounted() {
+
+        }, methods: {
+            clickManager() {
+                if (this.manager === true)
+                    this.idType = '账号'
+                else
+                    this.idType = '工号'
+
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        // alert(this.userForm.id);
+                        // this.userForm.manager = this.manager;
+                        if (this.manager) {
+                            this.userForm.name = this.userForm.id;
+                            // this.userForm.id = 'null';
+                            axios.post("http://localhost/man/login", this.userForm).then(resp => {
+
+                            })
+                        } else {
+                            this.userForm.id = Number(this.userForm.id)
+                            axios.post("http://localhost/emp/login", this.userForm).then(resp => {
+                                console.log(resp.data);
+                                // if (user.type === "admin"){
+                                sessionStorage.setItem('employee', JSON.stringify(resp.data));
+                                window.location.href='empHome.html';
+
+                                // } else if (user.type === "advert") {
+                                //     sessionStorage.setItem('user', JSON.stringify(user));
+                                //     this.$router.push({ path: '/table' });
+                                // }
+                            })
+
+                        }
+                        console.log(this.userForm)
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
+        }, data() {
+            let checkId = (rule, value, callback) => {
+                // if (!this.manager) {
+                //     // 普通员工
+                //     if (!/^8[0-9]{3}$/.test(this.userForm.id))
+                //         callback(new Error('员工号不正确'))
+                //     else
+                //         callback();
+                // } else if (value === '') {
+                //     callback(new Error('请输入' + this.idType));
+                // } else
+                //     callback();
+                if (!this.manager && !/^8[0-9]{3}$/.test(this.userForm.id))
+                    // 普通员工 验证员工号
+                    callback(new Error('员工号不正确'))
+                else {
+                    if (value === '') {
+                        callback(new Error('请输入' + this.idType));
+                    } else
+                        callback();
+                }
+
+                // if (value === '') {
+                //     callback(new Error('请输入' + this.idType));
+                // } else {
+                //     // 普通员工
+                //     if (!this.manager) {
+                //         if (!/^8[0-9]{3}$/.test(this.userForm.id))
+                //             callback(new Error('员工号不正确'))
+                //     } else {
+                //         // 管理员
+                //         if (value === '') {
+                //             callback(new Error('请输入' + this.idType));
+                //         }
+                //         callback();
+                //     }
+                // }
+            };
+
+            let checkPass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('密码不能为空'));
+                } else {
+                    callback();
+                }
+            };
+            return {
+                manager: false,
+                idType: '工号',
+                userForm: {
+                    id: '',
+                    passwd: '',
+                },
+                rules: {
+                    id: [
+                        {validator: checkId, trigger: 'blur'}
+                    ],
+                    passwd: [
+                        {validator: checkPass, trigger: 'blur'}
+                    ]
+                },
+            };
+        },
+    })
+</script>
+
+</body>
+</html>

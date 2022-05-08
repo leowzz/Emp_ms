@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>员工页面</title>
+</head>
+<body>
+<div id="empForm"></div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#empForm",
+        mounted() {
+            console.log(sessionStorage.getItem("employee"));
+        },
+        data: {},
+        methods: {
+            login: function () {
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
