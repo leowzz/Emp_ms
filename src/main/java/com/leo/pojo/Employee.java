@@ -6,6 +6,7 @@ public class Employee extends People {
     private String passwd; //员工密码
     private String age; //员工年龄
     private Float rate; // 奖金率
+    private Float salary; // 奖金率
     private String sex; // true为男性, false为女性F
     private String cardId; // 身份证号
     private String birth; //出生日期
@@ -148,6 +149,14 @@ public class Employee extends People {
         this.job_name = job_name;
     }
     
+    public Float getSalary() {
+        return salary;
+    }
+    
+    public void setSalary(Float salary) {
+        this.salary = salary;
+    }
+    
     public String getManager_id() {
         return manager_id;
     }
@@ -164,6 +173,7 @@ public class Employee extends People {
                 ", passwd='" + passwd + '\'' +
                 ", age='" + age + '\'' +
                 ", rate=" + rate +
+                ", salary=" + salary +
                 ", sex='" + sex + '\'' +
                 ", cardId='" + cardId + '\'' +
                 ", birth='" + birth + '\'' +

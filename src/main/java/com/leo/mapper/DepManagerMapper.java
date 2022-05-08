@@ -14,7 +14,7 @@ public interface DepManagerMapper {
     String[] selectJobs(int depId);
     
     
-    @Select("select e.id, e.name, e.passwd, e.tel, e.sex, e.rate, e.address, " +
+    @Select("select e.id, e.name, e.passwd, e.tel, e.sex, e.rate, job.salary, e.address, " +
             "e.dep_id, e.job_id,e.birth, e.cardId, job.job_name, d.manager_id " +
             "from emp_ms.employee as e, emp_ms.department as d, emp_ms.job where " +
             "e.dep_id = d.id and e.job_id = job.id and d.id=#{dep_id};")
