@@ -40,11 +40,13 @@ public class ManagerServlet extends BaseServlet {
         //转为Manager对象
         Manager manager = JSON.parseObject(params, Manager.class);
         System.out.println(manager);
-//        //2. 转为JSON
-//        String jsonString = JSON.toJSONString(manager);
-//        //3. 写数据
-//        response.setContentType("text/json;charset=utf-8");
-//        response.getWriter().write(jsonString);
+        //2. 调用service查询
+        boolean loginFlag = managerService.login(manager.getName(), manager.getPasswd());
+        if (loginFlag) {
+            response.getWriter().write("success");
+        } else {
+            response.getWriter().write("fail");
+        }
     }
     
     public void changePasswd(HttpServletRequest request,

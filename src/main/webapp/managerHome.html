@@ -121,13 +121,13 @@
 
         <div slot="header" class="clearfix">
             <span class="title" style="margin-right: 10px">欢迎您</span>
-            <span class="title" style="margin-right: 10px">{{this.managerInfo.name}}</span>
+            <span class="title" style="margin-right: 10px">{{managerName}}</span>
             <el-tag class="title" type="success">管理员</el-tag>
             <el-button style="float: right; padding: 3px 0; color: #F56C6C"
                        type="text" @click="logout">退出登录
             </el-button>
             <el-button style="float: right; padding: 3px 0; margin-right: 20px"
-                       type="text" @click="changePasswd">修改密码
+                       type="text" @click="changePasswdButton">修改密码
             </el-button>
         </div>
         <div class="text item">
@@ -181,6 +181,24 @@
             </el-form-item>
         </el-form>
     </el-dialog>
+    <el-dialog
+            title="修改密码"
+            :visible.sync="changePasswdVisible"
+            width="30%">
+        <el-form :model="newPasswdForm" status-icon :rules="rules" ref="newPasswdForm" label-width="100px"
+                 class="demo-newPasswdForm">
+            <el-form-item label="密码" prop="pass">
+                <el-input type="password" v-model="newPasswdForm.pass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+                <el-input type="password" v-model="newPasswdForm.checkPass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('newPasswdForm')">提交</el-button>
+                <el-button @click="resetForm('newPasswdForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
 </div>
 
 
@@ -194,18 +212,22 @@
         el: "#managerDiv",
         mounted() {
             // todo 从session中获取管理员信息
-
+            let jsonString = sessionStorage.getItem("managerInfo")
+            console.log(jsonString)
+            this.selfManagerInfo = JSON.parse(jsonString);
+            console.log(this.selfManagerInfo);
+            console.log(typeof this.selfManagerInfo);
+            this.managerName = this.selfManagerInfo.name;
+            console.log(this.managerName)
             this.getDepInfo();
-            console.log(this.depInfos);
+            // sessionStorage.clear();
         },
         methods: {
             logout() {
                 sessionStorage.clear();
             },
             changePasswdButton() {
-                axios.get("http://localhost/man/changePasswd?name=leo&newPasswd=124553").then(res => {
-
-                });
+                this.changePasswdVisible = true;
             },
             getDepInfo() {
                 axios.get("http://localhost/man/getAllDepInfo").then(res => {
@@ -236,12 +258,64 @@
             errorMessage(msg) {
                 this.$message.error(msg);
             },
+            submitForm(formName) {
+                this.changePasswdVisible = false;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        axios.get("http://localhost/man/changePasswd?name=leo&newPasswd=124553").then(res => {
+                            if ('success' === res.data )
+                                this.success('修改成功')
+                            else
+                                this.errorMessage('修改失败')
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
         },
         data() {
+            let validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.newPasswdForm.checkPass !== '') {
+                        this.$refs.newPasswdForm.validateField('checkPass');
+                    }
+                    callback();
+                }
+            };
+            let validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.newPasswdForm.pass) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
             return {
-                managerInfo: {
+                newPasswdForm: {
+                    pass: '',
+                    checkPass: '',
+                },
+                rules: {
+                    pass: [
+                        {validator: validatePass, trigger: 'blur'}
+                    ],
+                    checkPass: [
+                        {validator: validatePass2, trigger: 'blur'}
+                    ],
+                },
+                selfManagerInfo: {
                     name: "leo",
                 },
+                managerName: "test",
+                changePasswdVisible: false,
                 changeDepManagerVisible: false,
                 reviseDepManagerData: {dep_id: "", manager_id: ""},
                 depInfos: [

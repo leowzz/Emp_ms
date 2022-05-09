@@ -53,7 +53,7 @@
     new Vue({
         el: "#loginForm",
         mounted() {
-
+            // sessionStorage.clear();
         }, methods: {
             clickManager() {
                 if (this.manager === true)
@@ -66,20 +66,31 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         if (this.manager) {
-                            this.userForm.name = this.userForm.id;
+                            // 管理员登录
+                            let name = this.userForm.id;
+                            this.userForm.name = name;
+                            this.userForm.id = null;
+                            console.log(this.userForm);
+                            console.log(typeof this.userForm);
                             // this.userForm.id = 'null';
                             axios.post("http://localhost/man/login", this.userForm).then(resp => {
-
+                                console.log(resp.data);
+                                if ('success' === resp.data) {
+                                    sessionStorage.setItem('managerInfo', JSON.stringify(this.userForm));
+                                    window.location.href = 'managerHome.html';
+                                }else
+                                    this.$message.error('登录失败, 用户名或密码错误');
                             })
                         } else {
+                            // 员工登录
                             this.userForm.id = Number(this.userForm.id)
                             axios.post("http://localhost/emp/login", this.userForm).then(resp => {
                                 console.log(resp.data);
                                 sessionStorage.setItem('employee', JSON.stringify(resp.data));
-                                window.location.href='empHome.html';
+                                window.location.href = 'empHome.html';
                             })
                         }
-                        console.log(this.userForm)
+                        // console.log(this.userForm)
                     } else {
                         console.log('error submit!!');
                         return false;
