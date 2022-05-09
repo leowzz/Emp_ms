@@ -3,6 +3,7 @@ package com.leo.service.Impl;
 import com.leo.mapper.DepManagerMapper;
 import com.leo.mapper.EmpMapper;
 import com.leo.pojo.Employee;
+import com.leo.pojo.Job;
 import com.leo.service.DepManagerService;
 import com.leo.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -54,7 +55,7 @@ public class DepManagerServiceImpl implements DepManagerService {
         return id;
     }
     
-    ;
+    
     
     public String[] selectJobs(int dep_id) {
         //2. 获取SqlSession对象
@@ -68,7 +69,15 @@ public class DepManagerServiceImpl implements DepManagerService {
         return jobs;
     }
     
-    public boolean insertEmp(Employee emp) {
+    public List<Job> selectJobInfos(int dep_id) {
+        SqlSession sqlSession = factory.openSession();
+        DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
+        List<Job> jobs = mapper.selectJobInfos(dep_id);
+        sqlSession.close();
+        return jobs;
+    }
+    
+    public void insertEmp(Employee emp) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
 //        Employee e = new Employee("test", "test", "男", "202123555566664444", "2022-05-07",
@@ -77,17 +86,31 @@ public class DepManagerServiceImpl implements DepManagerService {
         mapper.createEmp(emp);
         sqlSession.commit();
         sqlSession.close();
-        return true;
-        
+    
     }
     
-    public boolean updateEmp(Employee emp) {
+    public void insertJob(Job job) {
+        SqlSession sqlSession = factory.openSession();
+        DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
+        mapper.insertJob(job);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    
+    public void updateJobSalary(Job job) {
+        SqlSession sqlSession = factory.openSession();
+        DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
+        mapper.updateJobSalary(job);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    
+    public void updateEmp(Employee emp) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
         mapper.updateEmp(emp);
         sqlSession.commit();
         sqlSession.close();
-        return true;
     }
     
     

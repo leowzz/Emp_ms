@@ -2,6 +2,7 @@ package com.leo.web.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.leo.pojo.Employee;
+import com.leo.pojo.Job;
 import com.leo.service.DepManagerService;
 import com.leo.service.Impl.DepManagerServiceImpl;
 
@@ -56,6 +57,14 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
+    public void selectJobInfos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
+        List<Job> jobs = depManagerService.selectJobInfos(dep_id);
+        String jsonString = JSON.toJSONString(jobs);
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    
     public void updateEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
@@ -70,7 +79,36 @@ public class DepManagerServlet extends BaseServlet {
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write("{\"msg\":\"success\"}");
     }
-
+    
+    public void insertJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1. 接收数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//json字符串
+        System.out.println("json: " + params);
+        //转为Job对象
+        Job job = JSON.parseObject(params, Job.class);
+        System.out.println(job);
+        //2. 调用service更新
+        depManagerService.insertJob(job);
+        //3. 返回结果
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write("{\"msg\":\"success\",\"id\":" + job.getId() + "}");
+    }
+    
+    public void updateJobSalary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1. 接收数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();//json字符串
+        System.out.println("json: " + params);
+        //转为Job对象
+        Job job = JSON.parseObject(params, Job.class);
+        System.out.println(job);
+        //2. 调用service更新
+        depManagerService.updateJobSalary(job);
+        //3. 返回结果
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write("{\"msg\":\"success\"}");
+    }
 //    public void selectJobIdByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        //1. 调用service查询
 //        request.getCharacterEncoding();

@@ -1,6 +1,7 @@
 package com.leo.service;
 
 import com.leo.pojo.Employee;
+import com.leo.pojo.Job;
 
 import java.util.List;
 
@@ -16,11 +17,16 @@ public interface DepManagerService {
     
     String[] selectJobs(int dep_id);
     
+    List<Job> selectJobInfos(int dep_id);
+    
     int selectIdByName(String name);
     
-    boolean insertEmp(Employee emp);
+    void insertJob(Job job);
+    
+    void updateJobSalary(Job job);
+    void insertEmp(Employee emp);
     
     boolean deleteEmp(int id);
     
-    boolean updateEmp(Employee emp);
+    void updateEmp(Employee emp);
 }

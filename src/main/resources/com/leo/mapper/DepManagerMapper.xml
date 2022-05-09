@@ -13,6 +13,14 @@
     </resultMap>
 
 
+    <insert id="insertJob">
+        insert into emp_ms.job (id, job_name, dep_id, salary) values (null, #{job_name}, #{dep_id}, #{salary})
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+    </insert>
+
+
     <!--<delete id="deleteByIds">-->
     <!--    delete from tb_brand where id in-->
     <!--    <foreach collection="ids" item="id" separator="," open="(" close=")">-->

@@ -16,10 +16,11 @@ public class Employee extends People {
     private Integer job_id; //职位
     private String dep_name; // 部门名称
     private String job_name; // 职位名称
-    private String manager_id = null; //部门主管类型
+    private Integer manager_id = null; //部门主管类型
     
     public Employee() {
     }
+    
     public Employee(String name, String passwd, String sex, String cardId, String birth,
                     String address, String tel, int dep_id, int job_id) {
         this.name = name;
@@ -157,11 +158,11 @@ public class Employee extends People {
         this.salary = salary;
     }
     
-    public String getManager_id() {
+    public Integer getManager_id() {
         return manager_id;
     }
     
-    public void setManager_id(String manager_id) {
+    public void setManager_id(Integer manager_id) {
         this.manager_id = manager_id;
     }
     
