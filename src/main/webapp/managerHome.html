@@ -211,20 +211,16 @@
     new Vue({
         el: "#managerDiv",
         mounted() {
-            // todo 从session中获取管理员信息
             let jsonString = sessionStorage.getItem("managerInfo")
-            console.log(jsonString)
             this.selfManagerInfo = JSON.parse(jsonString);
-            console.log(this.selfManagerInfo);
-            console.log(typeof this.selfManagerInfo);
             this.managerName = this.selfManagerInfo.name;
-            console.log(this.managerName)
             this.getDepInfo();
             // sessionStorage.clear();
         },
         methods: {
             logout() {
                 sessionStorage.clear();
+                window.location.href = "index.html";
             },
             changePasswdButton() {
                 this.changePasswdVisible = true;
@@ -262,8 +258,9 @@
                 this.changePasswdVisible = false;
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.get("http://localhost/man/changePasswd?name=leo&newPasswd=124553").then(res => {
-                            if ('success' === res.data )
+                        axios.get("http://localhost/man/changePasswd?name="+this.selfManagerInfo.name +
+                            "&newPasswd="+this.newPasswdForm.checkPass).then(res => {
+                            if ('success' === res.data)
                                 this.success('修改成功')
                             else
                                 this.errorMessage('修改失败')

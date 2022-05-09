@@ -67,18 +67,15 @@
                     if (valid) {
                         if (this.manager) {
                             // 管理员登录
-                            let name = this.userForm.id;
-                            this.userForm.name = name;
+                            this.userForm.name = this.userForm.id;
                             this.userForm.id = null;
-                            console.log(this.userForm);
-                            console.log(typeof this.userForm);
                             // this.userForm.id = 'null';
                             axios.post("http://localhost/man/login", this.userForm).then(resp => {
                                 console.log(resp.data);
                                 if ('success' === resp.data) {
                                     sessionStorage.setItem('managerInfo', JSON.stringify(this.userForm));
                                     window.location.href = 'managerHome.html';
-                                }else
+                                } else
                                     this.$message.error('登录失败, 用户名或密码错误');
                             })
                         } else {
