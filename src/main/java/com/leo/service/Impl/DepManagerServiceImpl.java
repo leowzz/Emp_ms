@@ -23,6 +23,14 @@ public class DepManagerServiceImpl implements DepManagerService {
         return es;
     }
     
+    public List<Employee> searchEmployeesByName(String name, int dep_id) {
+        SqlSession sqlSession = factory.openSession();
+        DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
+        String search_name = "%" + name + "%";
+        List<Employee> es = mapper.searchEmployeesByName(search_name, dep_id);
+        sqlSession.close();
+        return es;
+    }
     public Employee selectById(int id) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -113,13 +121,11 @@ public class DepManagerServiceImpl implements DepManagerService {
         sqlSession.close();
     }
     
-    
-    public boolean deleteEmp(int id) {
+    public void deleteEmp(int id) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
         mapper.deleteEmpById(id);
         sqlSession.commit();
         sqlSession.close();
-        return true;
     }
 }

@@ -34,7 +34,12 @@ public class DepManagerServiceImplTest {
     }
     
     @Test
-    public void selectAllEmployees() {
+    public void testSelectEmployeesByName() {
+        List<Employee> es = depManagerService.searchEmployeesByName("苗无光",2);
+        System.out.println(es);
+        for (Employee e : es) {
+            System.out.println(e);
+        }
     
     }
     

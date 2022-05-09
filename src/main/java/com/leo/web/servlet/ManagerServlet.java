@@ -46,4 +46,29 @@ public class ManagerServlet extends BaseServlet {
 //        response.setContentType("text/json;charset=utf-8");
 //        response.getWriter().write(jsonString);
     }
+    
+    public void changePasswd(HttpServletRequest request,
+                             HttpServletResponse response) throws ServletException, IOException {
+        //1. 接收数据
+        String name = request.getParameter("name");
+        String newPasswd = request.getParameter("newPasswd");
+        //2. 调用service更新
+        managerService.changePasswd(name, newPasswd);
+        //3. 返回结果
+        response.getWriter().write("success");
+    }
+    
+    public void updateManagerOfDep(HttpServletRequest request,
+                                   HttpServletResponse response) throws ServletException, IOException {
+        //1. 接收数据
+        int dep_id = Integer.parseInt(request.getParameter("d_id"));
+        int manager_id = Integer.parseInt(request.getParameter("m_id"));
+        //2. 调用service更新
+        boolean changeFlag = managerService.updateManagerOfDep(dep_id, manager_id);
+        //3. 返回结果
+        if (changeFlag)
+            response.getWriter().write("success");
+        else
+            response.getWriter().write("fail");
+    }
 }

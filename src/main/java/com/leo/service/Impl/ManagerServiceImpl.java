@@ -41,4 +41,18 @@ public class ManagerServiceImpl implements ManagerService {
         sqlSession.close();
         return true;
     }
+    
+    public boolean updateManagerOfDep(int dep_id, int manager_id) {
+        SqlSession sqlSession = factory.openSession();
+        ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
+        EmpMapper empMapper = sqlSession.getMapper(EmpMapper.class);
+        Employee emp = empMapper.selectInfoById(manager_id);
+        if (emp == null) {
+            sqlSession.close();
+            return false;
+        }
+        mapper.updateManagerOfDep(dep_id, manager_id);
+        sqlSession.commit();
+        return true;
+    }
 }

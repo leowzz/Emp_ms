@@ -30,6 +30,19 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
+    public void searchEmployeesByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
+        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
+        //1. 调用service查询
+        List<Employee> employees = depManagerService.searchEmployeesByName(name, dep_id);
+        System.out.println(employees);
+        //2. 转为JSON
+        String jsonString = JSON.toJSONString(employees);
+        //3. 写数据
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    
     public void addEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
@@ -109,6 +122,18 @@ public class DepManagerServlet extends BaseServlet {
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write("{\"msg\":\"success\"}");
     }
+    
+    public void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1. 接收数据
+        int emp_id = Integer.parseInt(request.getParameter("emp_id"));
+        //2. 调用service更新
+        depManagerService.deleteEmp(emp_id);
+        //3. 返回结果
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write("{\"msg\":\"success\"}");
+    }
+    
+    
 //    public void selectJobIdByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        //1. 调用service查询
 //        request.getCharacterEncoding();

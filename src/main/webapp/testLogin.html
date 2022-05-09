@@ -35,95 +35,224 @@
             padding: 10px 0;
             background-color: #f9fafc;
         }
+
+        .el-header, .el-footer {
+            background-color: #B3C0D1;
+            color: #333;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .el-aside {
+            background-color: #D3DCE6;
+            color: #333;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .el-main {
+            background-color: #E9EEF3;
+            color: #333;
+            text-align: center;
+            line-height: 160px;
+        }
+
+        body > .el-container {
+            margin-bottom: 40px;
+        }
+
+        .el-container:nth-child(5) .el-aside,
+        .el-container:nth-child(6) .el-aside {
+            line-height: 260px;
+        }
+
+        .el-container:nth-child(7) .el-aside {
+            line-height: 320px;
+        }
+
+        .text {
+            font-size: 14px;
+        }
+
+        .item {
+            margin-bottom: 18px;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .box-card {
+            width: 50%;
+            height: 66%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-<div id="loginForm">
-    <el-row>
-        <el-col :span="4">
-            <div class="grid-content bg-purple"></div>
-        </el-col>
-        <el-col :span="4">
-            <div class="grid-content bg-purple-light"></div>
-        </el-col>
-        <el-col :span="4">
-            <div class="grid-content bg-purple"></div>
-        </el-col>
-        <el-col :span="4">
-            <div class="grid-content bg-purple-light"></div>
-        </el-col>
-        <el-col :span="4">
-            <div class="grid-content bg-purple"></div>
-        </el-col>
-        <el-col :span="4">
-            <div class="grid-content bg-purple-light"></div>
-        </el-col>
-    </el-row>
-    <el-row>
-        <el-button>默认按钮</el-button>
-        <el-button type="primary">主要按钮</el-button>
-        <el-button type="success">成功按钮</el-button>
-        <el-button type="info">信息按钮</el-button>
-        <el-button type="warning">警告按钮</el-button>
-        <el-button type="danger">危险按钮</el-button>
-    </el-row>
+<div id="managerDiv">
+    <!--<el-container style="height: 720px;">-->
+    <!--    <el-header><span>欢迎</span>-->
+    <!--        <el-tag>管理员</el-tag>-->
+    <!--    </el-header>-->
+    <!--    <el-main>Main-->
 
-    <el-row>
-        <el-button plain>朴素按钮</el-button>
-        <el-button type="primary" plain>主要按钮</el-button>
-        <el-button type="success" plain>成功按钮</el-button>
-        <el-button type="info" plain>信息按钮</el-button>
-        <el-button type="warning" plain>警告按钮</el-button>
-        <el-button type="danger" plain>危险按钮</el-button>
-    </el-row>
+    <!--    </el-main>-->
+    <!--</el-container>-->
 
-    <el-row>
-        <el-button round>圆角按钮</el-button>
-        <el-button type="primary" round>主要按钮</el-button>
-        <el-button type="success" round>成功按钮</el-button>
-        <el-button type="info" round>信息按钮</el-button>
-        <el-button type="warning" round>警告按钮</el-button>
-        <el-button type="danger" round>危险按钮</el-button>
-    </el-row>
+    <el-card class="box-card">
 
-    <el-row>
-        <el-button icon="el-icon-search" circle></el-button>
-        <el-button type="primary" icon="el-icon-edit" circle></el-button>
-        <el-button type="success" icon="el-icon-check" circle></el-button>
-        <el-button type="info" icon="el-icon-message" circle></el-button>
-        <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-        <el-button type="danger" icon="el-icon-delete" circle></el-button>
-    </el-row>
-    <el-dialog title="员工信息"
-               :visible.sync="detailInfoVisible"
-               width="50%">
-        <div>
-
-            <el-descriptions title="用户信息">
-                <el-descriptions-item label="用户名">kooriookami</el-descriptions-item>
-                <el-descriptions-item label="手机号">18100000000</el-descriptions-item>
-                <el-descriptions-item label="居住地">苏州市</el-descriptions-item>
-                <el-descriptions-item label="备注">
-                    <el-tag size="small">职位</el-tag>
-                </el-descriptions-item>
-                <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
-            </el-descriptions>
+        <div slot="header" class="clearfix">
+            <span class="title" style="margin-right: 10px">欢迎您</span>
+            <span class="title" style="margin-right: 10px">{{this.managerInfo.name}}</span>
+            <el-tag class="title" type="success">管理员</el-tag>
+            <el-button style="float: right; padding: 3px 0; color: #F56C6C"
+                       type="text" @click="logout">退出登录
+            </el-button>
+            <el-button style="float: right; padding: 3px 0; margin-right: 20px"
+                       type="text" @click="changePasswd">修改密码
+            </el-button>
         </div>
+        <div class="text item">
+            <template>
+                <el-table
+                        :data="depInfos"
+                        style="width: 100%"
+                        stripe border>
+                    <el-table-column
+                            prop="id"
+                            label="部门编号"
+                            width="100" align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="dep_name"
+                            label="部门名称"
+                            width="180" align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="manager_id"
+                            label="主管编号"
+                            width="100" align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="name"
+                            label="主管姓名"
+                            width="180" align="center">
+                    </el-table-column>
+                    <el-table-column align="center" label="操作">
+                        <template slot-scope="scope">
+                            <el-button type="primary" plain @click="changeDepManager(scope.row)">更改主管</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </template>
+
+
+        </div>
+    </el-card>
+    <el-dialog
+            title="部门主管管理"
+            :visible.sync="changeDepManagerVisible"
+            width="30%">
+        <el-form ref="form" :model="reviseDepManagerData" label-width="150px">
+            <el-form-item label="新部门主管员工号">
+                <el-input v-model="reviseDepManagerData.manager_id" style="width: 100%"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="changeDepManagerVisible = false">取消</el-button>
+                <el-button type="primary" @click="submitDepManager">修改</el-button>
+            </el-form-item>
+        </el-form>
     </el-dialog>
 </div>
 
 
 <script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
 <script src="element-ui/lib/index.js"></script>
-<script src="element-ui/lib/dialog.js"></script>
 <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
 
 <script>
     new Vue({
-        el: "#loginForm",
-        data: {
-            detailInfoVisible: true,
+        el: "#managerDiv",
+        mounted() {
+            // todo 从session中获取管理员信息
+
+            this.getDepInfo();
+            console.log(this.depInfos);
+        },
+        methods: {
+            logout() {
+                sessionStorage.clear();
+            },
+            changePasswdButton() {
+                axios.get("http://localhost/man/changePasswd?name=leo&newPasswd=124553").then(res => {
+
+                });
+            },
+            getDepInfo() {
+                axios.get("http://localhost/man/getAllDepInfo").then(res => {
+                    this.depInfos = res.data;
+                })
+            },
+            changeDepManager(row) {
+                this.changeDepManagerVisible = true;
+                this.reviseDepManagerData = row;
+                console.log(row);
+            },
+            submitDepManager() {
+                axios.get("http://localhost/man/updateManagerOfDep?d_id=" +
+                    this.reviseDepManagerData.id +
+                    "&m_id=" + this.reviseDepManagerData.manager_id).then(res => {
+                    if ('success' === res.data) {
+                        this.success("修改成功");
+                    } else {
+                        this.errorMessage("修改失败");
+                    }
+                });
+                this.getDepInfo();
+                this.changeDepManagerVisible = false;
+            },
+            success(msg) {
+                this.$message({message: msg, type: 'success'});
+            },
+            errorMessage(msg) {
+                this.$message.error(msg);
+            },
+        },
+        data() {
+            return {
+                managerInfo: {
+                    name: "leo",
+                },
+                changeDepManagerVisible: false,
+                reviseDepManagerData: {dep_id: "", manager_id: ""},
+                depInfos: [
+                    {
+                        id: 1,
+                        dep_name: "开发部",
+                        manager_id: 8001,
+                        name: "测试人",
+                    },
+                ],
+            }
         }
     })
 

@@ -5,7 +5,7 @@
     <title>员工页面</title>
 </head>
 <body>
-<div id="empForm"></div>
+<div id="empDiv"></div>
 
 <script src="js/vue.js"></script>
 <script src="js/axios-0.18.0.js"></script>
@@ -14,7 +14,7 @@
 
 <script>
     new Vue({
-        el: "#empForm",
+        el: "#empDiv",
         mounted() {
             console.log(sessionStorage.getItem("employee"));
         },

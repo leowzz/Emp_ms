@@ -65,8 +65,6 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        // alert(this.userForm.id);
-                        // this.userForm.manager = this.manager;
                         if (this.manager) {
                             this.userForm.name = this.userForm.id;
                             // this.userForm.id = 'null';
@@ -77,16 +75,9 @@
                             this.userForm.id = Number(this.userForm.id)
                             axios.post("http://localhost/emp/login", this.userForm).then(resp => {
                                 console.log(resp.data);
-                                // if (user.type === "admin"){
                                 sessionStorage.setItem('employee', JSON.stringify(resp.data));
                                 window.location.href='empHome.html';
-
-                                // } else if (user.type === "advert") {
-                                //     sessionStorage.setItem('user', JSON.stringify(user));
-                                //     this.$router.push({ path: '/table' });
-                                // }
                             })
-
                         }
                         console.log(this.userForm)
                     } else {
@@ -100,16 +91,6 @@
             }
         }, data() {
             let checkId = (rule, value, callback) => {
-                // if (!this.manager) {
-                //     // 普通员工
-                //     if (!/^8[0-9]{3}$/.test(this.userForm.id))
-                //         callback(new Error('员工号不正确'))
-                //     else
-                //         callback();
-                // } else if (value === '') {
-                //     callback(new Error('请输入' + this.idType));
-                // } else
-                //     callback();
                 if (!this.manager && !/^8[0-9]{3}$/.test(this.userForm.id))
                     // 普通员工 验证员工号
                     callback(new Error('员工号不正确'))
@@ -119,22 +100,6 @@
                     } else
                         callback();
                 }
-
-                // if (value === '') {
-                //     callback(new Error('请输入' + this.idType));
-                // } else {
-                //     // 普通员工
-                //     if (!this.manager) {
-                //         if (!/^8[0-9]{3}$/.test(this.userForm.id))
-                //             callback(new Error('员工号不正确'))
-                //     } else {
-                //         // 管理员
-                //         if (value === '') {
-                //             callback(new Error('请输入' + this.idType));
-                //         }
-                //         callback();
-                //     }
-                // }
             };
 
             let checkPass = (rule, value, callback) => {

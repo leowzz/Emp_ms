@@ -9,6 +9,7 @@ public interface DepManagerService {
     
     List<Employee> selectAllEmployees(int dep_id);
     
+    List<Employee> searchEmployeesByName(String name, int dep_id);
     Employee selectById(int id);
     
     int selectJobIdByName(String name);
@@ -26,7 +27,7 @@ public interface DepManagerService {
     void updateJobSalary(Job job);
     void insertEmp(Employee emp);
     
-    boolean deleteEmp(int id);
+    void deleteEmp(int id);
     
     void updateEmp(Employee emp);
 }

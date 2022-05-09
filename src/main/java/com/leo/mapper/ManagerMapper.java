@@ -18,4 +18,10 @@ public interface ManagerMapper {
     
     @Update("update emp_ms.manager set passwd = #{passwd} where name = #{name};")
     void changePasswd(@Param("name") String name, @Param("passwd") String passwd);
+    
+    @Update("update emp_ms.department set manager_id = #{manager_id} where id = #{id};")
+    void updateManagerOfDep(@Param("id") int dep_id, @Param("manager_id") int manager_id);
+    
+    @Select("select manager_id from emp_ms.department where id = #{dep_id}")
+    int selectManagerOfDep(int dep_id);
 }

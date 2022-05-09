@@ -10,4 +10,6 @@ public interface ManagerService {
     boolean login(String id, String passwd);
     
     boolean changePasswd(String name, String passwd);
+    
+    boolean updateManagerOfDep(int dep_id, int manager_id);
 }
