@@ -24,11 +24,11 @@ public class EmpServlet extends BaseServlet {
         //1. 接收数据
         BufferedReader br = req.getReader();
         String params = br.readLine();//json字符串
-        int id = (Integer) JSON.parseObject(params).get("id");
+//        int id = (Integer) JSON.parseObject(params).get("id");
         //转为Employee对象
         Employee employee = JSON.parseObject(params, Employee.class);
-        employee.setId(id);
-        System.out.println(employee);
+//        employee.setId(id);
+        System.out.println("employee: " + employee);
         // 查询
         Employee loginEmp = employeeService.login(employee.getId(), employee.getPasswd());
         System.out.println(loginEmp);
@@ -40,8 +40,8 @@ public class EmpServlet extends BaseServlet {
             //3. 写数据
             res.setContentType("text/json;charset=utf-8");
             res.getWriter().write(jsonString);
-            HttpSession session = req.getSession();
-            session.setAttribute("employee", employee);
+//            HttpSession session = req.getSession();
+//            session.setAttribute("employee", employee);
             
         }else {
             System.out.println("登录失败");
