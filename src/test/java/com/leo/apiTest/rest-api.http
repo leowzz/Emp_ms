@@ -1,0 +1,39 @@
+GET http://localhost/dep/selectAllEmp?dep_id=2
+Accept: application/json
+
+###
+
+GET http://localhost/dep/selectJobIdByName?job_name=人事部主管
+Accept: application/json
+
+
+###
+GET http://localhost/dep/selectJobNames
+Accept: application/json
+
+###
+
+GET http://localhost/dep/searchEmployeesByName?name=苗无光&dep_id=2
+Accept: application/json
+
+<> 2022-05-09T112419.200.json
+<> 2022-05-09T112412.200.json
+<> 2022-05-09T112326.200.json
+<> 2022-05-09T112219.200.json
+<> 2022-05-09T112135.200.json
+<> 2022-05-09T111931.200.json
+<> 2022-05-09T111915.200.json
+<> 2022-05-09T111831.200.json
+<> 2022-05-09T110813.200.json
+<> 2022-05-09T110449.200.json
+<> 2022-05-09T105820.200.json
+<> 2022-05-09T105814.200.json
+<> 2022-05-09T105654.200.json
+<> 2022-05-09T105603.200.json
+<> 2022-05-09T105535.200.json
+<> 2022-05-09T105227.200.json
+<> 2022-05-09T104805.200.json
+
+###
+GET http://localhost/dep/selectJobNames?dep_id=3
+Accept: application/json

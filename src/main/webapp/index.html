@@ -53,7 +53,7 @@
     new Vue({
         el: "#loginForm",
         mounted() {
-            // sessionStorage.clear();
+            sessionStorage.clear();
         }, methods: {
             clickManager() {
                 if (this.manager === true)
@@ -90,6 +90,7 @@
                                     // 判断员工类型
                                     if (userForm.id === userForm.manager_id) {
                                         // 跳转到部门主管页面
+                                        // todo 结构变革: 登录时调用api, 在servlet中设置session, 而不返回用户信息, 只返回登录状态
                                         sessionStorage.setItem('depManager', JSON.stringify(resp.data));
                                         window.location.href = 'depManagerHome.html';
                                     } else {

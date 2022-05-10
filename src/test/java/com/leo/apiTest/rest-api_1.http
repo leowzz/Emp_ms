@@ -1,0 +1,87 @@
+POST http://localhost:80/emp/login
+Content-Type: application/json
+
+{"id":8001,"name": "test","passwd": "031214"}
+
+
+###
+GET http://localhost/man/getAllDepInfo
+Accept: application/json
+
+<> 2022-05-06T110642.404.html
+
+###
+GET http://localhost/dep/selectJobInfos?dep_id=3
+Accept: application/json
+
+###
+POST http://localhost/dep/insertJob
+Content-Type: application/json
+
+{"id": null,"job_name": "test","dep_id": 3,"salary": 1000}
+
+<> 2022-05-09T091851.200.json
+
+###
+POST http://localhost/dep/updateJobSalary
+Content-Type: application/json
+
+{"id": 41,"job_name": "test","dep_id": 3,"salary": 120020}
+
+<> 2022-05-09T092223.200.json
+<> 2022-05-09T091928.200.json
+<> 2022-05-09T091835.200.json
+
+###
+GET http://localhost/dep/deleteEmployee?emp_id=8515
+Accept: application/json
+
+<> 2022-05-09T100936.200.json
+
+###
+GET http://localhost/man/getAllDepInfo
+Accept: application/json
+
+<> 2022-05-09T145738.200.json
+###
+
+GET http://localhost/man/changePasswd?name=leo&newPasswd=124553
+Accept: application/json
+
+<> 2022-05-09T154123.200.txt
+<> 2022-05-09T154052.200.txt
+
+###
+
+GET http://localhost/man/updateManagerOfDep?d_id=5&m_id=8073
+Accept: application/json
+
+<> 2022-05-09T160951.200.txt
+<> 2022-05-09T160947.200.txt
+<> 2022-05-09T160937.200.txt
+<> 2022-05-09T160932.200.txt
+<> 2022-05-09T160928.200.txt
+<> 2022-05-09T160444.200.txt
+<> 2022-05-09T160012.200.txt
+<> 2022-05-09T154343.200.txt
+
+###
+GET http://localhost/emp/changePasswd?id=8001&newPasswd=031214
+Accept: application/json
+
+<> 2022-05-10T204100.200.txt
+<> 2022-05-10T204027.200.txt
+
+
+###
+POST http://localhost/emp/login
+Content-Type: application/json
+
+{"id":8024,"name": "test","passwd": "123456"}
+
+<> 2022-05-10T205923.200.json
+<> 2022-05-10T204420.200.json
+<> 2022-05-10T204304.200.json
+<> 2022-05-10T204159.200.json
+<> 2022-05-10T204103.200.json
+<> 2022-05-10T204044.200.txt
