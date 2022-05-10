@@ -3,9 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <title>员工页面</title>
+    <style>
+        .el-row {
+            margin-bottom: 20px;
+
+
+        }
+
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .row-bg {
+            padding: 10px 0;
+            background-color: #f9fafc;
+        }
+
+        .el-header, .el-footer {
+            background-color: #B3C0D1;
+            color: #333;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .el-aside {
+            background-color: #D3DCE6;
+            color: #333;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .el-main {
+            background-color: #E9EEF3;
+            color: #333;
+            text-align: center;
+            line-height: 160px;
+        }
+
+        body > .el-container {
+            margin-bottom: 40px;
+        }
+
+        .el-container:nth-child(5) .el-aside,
+        .el-container:nth-child(6) .el-aside {
+            line-height: 260px;
+        }
+
+        .el-container:nth-child(7) .el-aside {
+            line-height: 320px;
+        }
+
+        .text {
+            font-size: 14px;
+        }
+
+        .item {
+            margin-bottom: 18px;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .box-card {
+            width: 30%;
+            height: 80%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<div id="empDiv"></div>
+<div id="empDiv">
+    <el-card class="box-card">
+
+        <div slot="header" class="clearfix">
+            <span class="title" style="margin-right: 10px">欢迎您</span>
+            <el-tag class="title" type="success">{{this.selfInfo.name}}</el-tag>
+            <el-button style="float: right; padding: 3px 0; color: #F56C6C"
+                       type="text" @click="logout">退出登录
+            </el-button>
+            <el-button style="float: right; padding: 3px 0;margin-right: 20px; color: #67C23A"
+                       type="text" @click="chowSalary">查询薪资
+            </el-button>
+            <el-button style="float: right; padding: 3px 0; margin-right: 10px"
+                       type="text" @click="changePwdButton">修改密码
+            </el-button>
+        </div>
+        <div class="text item">
+            <el-form ref="form" :model="selfInfo" label-width="100px">
+                <el-form-item label="姓名">
+                    <el-input v-model="selfInfo.name" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="职位">
+                    <el-tag class="title">{{selfInfo.job_name}}</el-tag>
+                    <el-tag class="title" effect="plain">{{selfInfo.dep_name}}</el-tag>
+                </el-form-item>
+                <!--<el-form-item label="部门">-->
+                <!--</el-form-item>-->
+
+                <!--<el-form-item label="员工密码">-->
+                <!--    <el-input v-model="selfInfo.passwd" value="123456"></el-input>-->
+                <!--</el-form-item>-->
+
+                <el-form-item label="性别">
+                    <el-radio-group v-model="selfInfo.sex">
+                        <el-radio label="男"></el-radio>
+                        <el-radio label="女"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="联系方式">
+                    <el-input v-model="selfInfo.tel" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="出生日期">
+                    <el-col>
+                        <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
+                                        v-model="selfInfo.birth" style="width: 80%;"></el-date-picker>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                    <el-input v-model="selfInfo.cardId" placeholder="身份证号" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="联系地址">
+                    <el-input v-model="selfInfo.address" style="width: 80%"></el-input>
+                </el-form-item>
+                <!--<el-form-item label="职位" :data="jobs">-->
+                <!--    <el-select v-model="selfInfo.job_name" placeholder="请选择员工职位">-->
+                <!--        <el-option v-for="job in jobs" :value="job">{{job}}</el-option>-->
+                <!--    </el-select>-->
+                <!--</el-form-item>-->
+
+                <el-form-item>
+                    <el-button type="primary" @click="submitChangeInfo"
+                               style="position: relative; left:64px">修改信息
+                    </el-button>
+                    <!--<el-button @click="this.showSalaryVisible = false">取消</el-button>-->
+                </el-form-item>
+            </el-form>
+        </div>
+    </el-card>
+
+    <el-dialog title="员工信息"
+               :visible.sync="showSalaryVisible"
+               width="42%">
+        <template>
+            <el-table
+                    :data="selfSalaryInfo"
+                    style="width: 100%">
+                <el-table-column
+                        prop="salary"
+                        label="职位薪资"
+                        width="180"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="rate"
+                        label="奖金率"
+                        width="180" align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="salaryShow"
+                        label="本月应得奖金" align="center">
+                </el-table-column>
+            </el-table>
+        </template>
+    </el-dialog>
+    <el-dialog
+            title="修改密码"
+            :visible.sync="changePwdVisible"
+            width="30%">
+        <el-form :model="newPasswdForm" status-icon :rules="rules" ref="newPasswdForm" label-width="100px"
+                 class="demo-newPasswdForm">
+            <el-form-item label="密码" prop="pass">
+                <el-input type="password" v-model="newPasswdForm.pass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+                <el-input type="password" v-model="newPasswdForm.checkPass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitPwdChange('newPasswdForm')">提交</el-button>
+                <el-button @click="resetForm('newPasswdForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+
+</div>
 
 <script src="js/vue.js"></script>
 <script src="js/axios-0.18.0.js"></script>
@@ -17,12 +231,123 @@
         el: "#empDiv",
         mounted() {
             console.log(sessionStorage.getItem("employee"));
+            this.selfInfo = JSON.parse(sessionStorage.getItem("employee"));
+
         },
-        data: {},
         methods: {
-            login: function () {
+            changePwdButton() {
+                this.changePwdVisible = true;
+            },
+            submitPwdChange(formName) {
+                this.changePwdVisible = false;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        console.log(this.newPasswdForm);
+                        axios.get("http://localhost/emp/changePasswd?id=" + this.selfInfo.id +
+                            "&newPasswd=" + this.newPasswdForm.checkPass).then(res => {
+                            if ('success' === res.data)
+                                this.success('修改成功')
+                            else
+                                this.errorMessage('修改失败')
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            success(msg) {
+                this.$message({message: msg, type: 'success'});
+            },
+            errorMessage(msg) {
+                this.$message.error(msg);
+            },
+            submitChangeInfo() {
+                this.$confirm('确认提交？').then(_ => {
+                    console.log(this.detailInfoData);
+                    axios.post('http://localhost/emp/updateSelfInfo', this.selfInfo).then(res => {
+                        if (res.data.msg === 'success') {
+                            this.success('修改成功');
+                        }
+                    });
+                }).catch(_ => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    })
+                });
+                this.detailInfoVisible = false;
+            },
+            chowSalary() {
+                this.selfSalaryInfo[0] = this.selfInfo;
+                this.selfSalaryInfo[0].salaryShow = (this.selfInfo.salary * (1 + this.selfInfo.rate)).toFixed(2);
+                this.showSalaryVisible = true;
+            },
+            logout() {
+                sessionStorage.clear();
+                window.location.href = "index.html";
+            },
+        },
+        data() {
+            let validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.newPasswdForm.checkPass !== '') {
+                        this.$refs.newPasswdForm.validateField('checkPass');
+                    }
+                    callback();
+                }
+            };
+            let validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.newPasswdForm.pass) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
+            return {
+                showSalaryVisible: false,
+                changePwdVisible: false,
+                selfInfo: {
+                    id: 8001,
+                    sex: '男',
+                    salary: 20001,
+                    rate: 0.6,
+                    name: "测试员工",
+                    job_name: "测试职位",
+                    tel: "13333333333",
+                    cardId: "123456789012345678",
+                    address: "测试地址",
+                    birth: "2019-01-01",
+                    dep_name: "测试部门",
+                    passwd:'123456',
+                },
+                newPasswdForm: {
+                    pass: '',
+                    checkPass: '',
+                },
+                rules: {
+                    pass: [
+                        {validator: validatePass, trigger: 'blur'}
+                    ],
+                    checkPass: [
+                        {validator: validatePass2, trigger: 'blur'}
+                    ],
+                },
+                selfSalaryInfo: [{
+                    salary: 20000,
+                    rate: 0.6,
+                    salaryShow: 0,
+                }],
             }
-        }
+        },
+
     });
 </script>
 

@@ -83,8 +83,18 @@
                             this.userForm.id = Number(this.userForm.id)
                             axios.post("http://localhost/emp/login", this.userForm).then(resp => {
                                 console.log(resp.data);
-                                sessionStorage.setItem('employee', JSON.stringify(resp.data));
-                                window.location.href = 'empHome.html';
+                                let userForm = resp.data;
+                                // 判断员工类型
+                                if( userForm.id === userForm.manager_id){
+                                    // 跳转到部门主管页面
+                                    sessionStorage.setItem('depManager', JSON.stringify(resp.data));
+                                    window.location.href = 'depManagerHome.html';
+                                }else{
+                                    // 跳转到员工页面
+                                    sessionStorage.setItem('employee', JSON.stringify(resp.data));
+                                    window.location.href = 'empHome.html';
+                                }
+
                             })
                         }
                         // console.log(this.userForm)

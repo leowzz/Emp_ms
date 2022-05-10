@@ -47,13 +47,32 @@ public class EmpServlet extends BaseServlet {
             System.out.println("登录失败");
             res.getWriter().write("false");
         }
-        
-
     }
     
     public void changePasswd(HttpServletRequest req,
                              HttpServletResponse res) throws ServletException, IOException {
-        System.out.println("changePasswd...");
+        //1. 接收数据
+        int id =  Integer.parseInt(req.getParameter("id"));
+        String newPasswd = req.getParameter("newPasswd");
+        //2. 调用service更新
+        employeeService.changePasswd(id, newPasswd);
+        //3. 返回结果
+        res.getWriter().write("success");
+    }
+    
+    public void updateSelfInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1. 接收数据
+        BufferedReader br = request.getReader();
+        String params = br.readLine();
+        System.out.println("json: " + params);
+        //转为Employee对象
+        Employee employee = JSON.parseObject(params, Employee.class);
+        System.out.println(employee);
+        //2. 调用service更新
+        employeeService.updateEmp(employee);
+        //3. 返回结果
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write("{\"msg\":\"success\"}");
     }
     
 }

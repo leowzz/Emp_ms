@@ -282,9 +282,9 @@
     new Vue({
         el: "#main",
         mounted() {
-            // todo 从session中获取部门主管信息
-            this.selectAll();
+            this.selfInfo = JSON.parse(sessionStorage.getItem("depManager"));
             this.selectAllJob();
+            this.selectAll();
         },
         methods: {
             query() {
@@ -300,6 +300,7 @@
             },
             logout() {
                 sessionStorage.clear();
+                location.href = "index.html";
             },
             rowDetail(row, event, column) {
                 this.detailInfo(row);
@@ -311,7 +312,7 @@
             // 修改职位工资按钮
             reviseJobSalary() {
                 axios.get("http://localhost/dep/selectJobInfos?dep_id=" + this.selfInfo.dep_id).then(res => {
-                    this.jobList = res.data;
+                    this.jobList = res.data.slice(1);
                 });
                 this.reviseJobSalaryVisible = true;
             },
@@ -319,6 +320,9 @@
             submitJobSalary() {
                 axios.post("http://localhost/dep/updateJobSalary", this.reviseJobSalaryData).then(res => {
                     this.selectAll();
+                    if ('success' === res.data.msg) {
+                        this.success("修改成功");
+                    }
                 });
                 console.log(this.reviseJobSalaryData);
                 // 获取job_id
@@ -329,8 +333,7 @@
                     }
                 }
                 this.reviseJobSalaryVisible = false;
-            }
-            ,
+            },
             submitEmployee() {
                 // console.log(this.newEmpInfo);
                 // let birthDate = new Date(this.newEmpInfo.birth);
@@ -354,8 +357,7 @@
                 this.dialogVisible = false;
 
                 // 重新查询数据
-            }
-            ,
+            },
             reviseEmp() {
                 console.log(this.detailInfoData);
                 axios.post('http://localhost/dep/updateEmp', this.detailInfoData).then(res => {
@@ -364,8 +366,7 @@
                     }
                 });
                 this.detailInfoVisible = false;
-            }
-            ,
+            },
             addEmployeeButton() {
                 // // 获取职位信息
                 // axios.get("http://localhost/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
