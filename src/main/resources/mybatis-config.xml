@@ -5,7 +5,7 @@
 <configuration>
 
     <typeAliases>
-        <package name="com.itheima.pojo"/>
+        <package name="com.leo.pojo"/>
     </typeAliases>
 
     <environments default="development">

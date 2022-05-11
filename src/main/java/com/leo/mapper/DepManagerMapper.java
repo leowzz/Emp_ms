@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.*;
 import javax.jws.WebResult;
 import java.util.List;
 
+// 部门主管Mapper
 public interface DepManagerMapper {
     
     @Select("select job_name from emp_ms.job where dep_id = #{depId}")

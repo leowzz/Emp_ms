@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 管理员mapper
 public interface ManagerMapper {
     @Select("select * from emp_ms.view_all_dep_info")
     List<HashMap<String,String>> selectAllDepInfo();

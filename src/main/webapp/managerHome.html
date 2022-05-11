@@ -135,7 +135,7 @@
                 <el-table
                         :data="depInfos"
                         style="width: 100%"
-                        stripe border>
+                        stripe>
                     <el-table-column
                             prop="id"
                             label="部门编号"
@@ -258,8 +258,8 @@
                 this.changePasswdVisible = false;
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.get("http://localhost/man/changePasswd?name="+this.selfManagerInfo.name +
-                            "&newPasswd="+this.newPasswdForm.checkPass).then(res => {
+                        axios.get("http://localhost/man/changePasswd?name=" + this.selfManagerInfo.name +
+                            "&newPasswd=" + this.newPasswdForm.checkPass).then(res => {
                             if ('success' === res.data)
                                 this.success('修改成功')
                             else

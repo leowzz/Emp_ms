@@ -4,7 +4,6 @@ com\leo\web\servlet\DepManagerServlet.class
 com\leo\web\servlet\EmpServlet.class
 com\leo\service\Impl\EmployeeServiceImpl.class
 com\leo\mapper\DepManagerMapper.class
-com\leo\web\servlet\LoginServlet.class
 com\leo\service\Impl\ManagerServiceImpl.class
 com\leo\pojo\Job.class
 com\leo\mapper\EmpMapper.class
