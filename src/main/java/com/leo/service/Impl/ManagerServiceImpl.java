@@ -55,4 +55,40 @@ public class ManagerServiceImpl implements ManagerService {
         sqlSession.commit();
         return true;
     }
+    
+    
+    public boolean backupDatabase() {
+        // todo backup database
+        /*
+    public static String get_time() throws IOException {
+        return new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
+    }
+    
+    public static void backup() throws IOException {
+        String absPath = new File("").getCanonicalPath(); // 获取项目的绝对路径
+        String savePath = absPath + separator + "bak\\databaseBacks\\"; // 文件备份路径
+        File saveFile = new File(savePath);
+        if (!saveFile.exists()) {// 如果目录不存在
+            boolean f = saveFile.mkdirs();// 创建文件夹
+            System.out.println("目录不存在, 创建文件夹" + absPath + separator + savePath + "成功：" + f);
+        }
+        if (!savePath.endsWith(separator)) {
+            savePath = savePath + separator;
+        }
+        try {
+            String fileName = get_time() + ".txt";
+            String command = "cmd /c mysqldump -u leo -p031214 --set-charset=UTF8 emp_ms > " + savePath + fileName;
+            Process process = Runtime.getRuntime().exec(command);
+            if (process.waitFor() == 0) {
+                // 0 表示线程正常终止。
+                System.out.println("备份成功, 备份文件路径为：\n" + savePath + fileName);
+            } else
+                System.out.println("备份失败");
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+        */
+        return true;
+    }
 }

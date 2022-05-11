@@ -12,4 +12,6 @@ public interface ManagerService {
     boolean changePasswd(String name, String passwd);
     
     boolean updateManagerOfDep(int dep_id, int manager_id);
+    
+    boolean backupDatabase();
 }

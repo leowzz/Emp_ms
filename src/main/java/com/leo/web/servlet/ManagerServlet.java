@@ -73,4 +73,15 @@ public class ManagerServlet extends BaseServlet {
         else
             response.getWriter().write("fail");
     }
+    
+    public void backupDatabase(HttpServletRequest request,
+                               HttpServletResponse response) throws ServletException, IOException {
+        //1. 调用service更新
+        boolean backupFlag = managerService.backupDatabase();
+        //2. 返回结果
+        if (backupFlag)
+            response.getWriter().write("success");
+        else
+            response.getWriter().write("fail");
+    }
 }
