@@ -131,7 +131,7 @@
             <el-dialog
                     title="添加员工"
                     :visible.sync="dialogVisible"
-                    width="30%">
+                    width="30%" style="margin-top: -80px">
                 <el-form ref="form" :model="newEmpInfo" label-width="80px">
                     <el-form-item label="员工名称">
                         <el-input v-model="newEmpInfo.name"></el-input>
@@ -177,7 +177,7 @@
             <!--员工详细信息表单-->
             <el-dialog title="员工信息"
                        :visible.sync="detailInfoVisible"
-                       width="30%">
+                       width="30%" style="margin-top: -120px">
                 <el-form ref="form" :model="detailInfoData" label-width="80px">
                     <el-form-item label="员工名称">
                         <el-input v-model="detailInfoData.name"></el-input>
