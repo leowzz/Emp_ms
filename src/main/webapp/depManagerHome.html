@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>部门主管页面</title>
     <style>
         .el-header {
             background-color: #B3C0D1;
@@ -50,8 +50,8 @@
 <div id="main">
     <el-container style="height: 720px; border: 1px solid #eee">
         <el-container>
+            <!--页头 包括添加员工, 薪资管理, 添加职位, 按姓名搜索-->
             <el-header style="text-align: right; font-size: 12px">
-
                 <el-button type="primary" plain style="float: left; position: relative ;top: 10px"
                            @click="addEmployeeButton">添加员工
                 </el-button>
@@ -66,13 +66,6 @@
                          :model="queryInfo"
                          label-position="middle" class="demo-form-inline"
                          style="width:200px; height: 60px; position:relative; margin: auto;float: left;left: 100px">
-                    <!--                    <el-form-item label="性别" style="height:100%; ">-->
-                    <!--                        <el-select v-model="queryInfo.sex" placeholder="性别"-->
-                    <!--                                   style="width:100px; height: 60px; position: relative ;top: 10px">-->
-                    <!--                            <el-option label="男" value="male"></el-option>-->
-                    <!--                            <el-option label="女" value="female"></el-option>-->
-                    <!--                        </el-select>-->
-                    <!--                    </el-form-item>-->
                     <el-form-item label="员工姓名" style="height:100%">
                         <el-input v-model="queryInfo.name" placeholder="员工姓名"
                                   style="width:120px; height:60px;float: left ; position: relative ;top: 10px"></el-input>
@@ -86,6 +79,7 @@
                 </div>
                 <el-button type="danger" round @click="logout">退出登录</el-button>
             </el-header>
+
             <!--职位薪资管理表单-->
             <el-dialog
                     title="职位工资管理"
@@ -126,7 +120,6 @@
                     </el-form-item>
                 </el-form>
             </el-dialog>
-
             <!--添加员工表单-->
             <el-dialog
                     title="添加员工"
@@ -234,7 +227,7 @@
                 <!--                </el-descriptions>-->
             </el-dialog>
 
-
+            <!--员工信息表格-->
             <el-main>
                 <!--stripe: 斑马纹, border: 边框-->
                 <el-table :data="AllEmpInfo" stripe height="100%" @row-click="rowDetail" slot-scope="scope">
@@ -281,12 +274,14 @@
 <script>
     new Vue({
         el: "#main",
+        // 渲染后获取数据
         mounted() {
             this.selfInfo = JSON.parse(sessionStorage.getItem("depManager"));
             this.selectAllJob();
             this.selectAll();
         },
         methods: {
+            // 按姓名查询员工
             query() {
                 if (this.queryInfo.name === "") {
                     this.selectAll();
@@ -298,16 +293,29 @@
                     })
                 }
             },
+            // 退出登录
             logout() {
                 sessionStorage.clear();
                 location.href = "index.html";
             },
+            // 点击每行的详细信息
             rowDetail(row, event, column) {
                 this.detailInfo(row);
             },
+            // 查看详细信息按钮
             detailInfo(row) {
                 this.detailInfoVisible = true;
                 this.detailInfoData = row;
+            },
+            // 员工详细信息内修改按钮
+            reviseEmp() {
+                console.log(this.detailInfoData); // 打印修改后的数据
+                axios.post('http://localhost/dep/updateEmp', this.detailInfoData).then(res => {
+                    if (res.data.msg === 'success') {
+                        this.success('修改成功');
+                    }
+                });
+                this.detailInfoVisible = false;
             },
             // 修改职位工资按钮
             reviseJobSalary() {
@@ -316,14 +324,14 @@
                 });
                 this.reviseJobSalaryVisible = true;
             },
-            // 修改职位工资
+            // 修改职位工资 提交按钮
             submitJobSalary() {
                 axios.post("http://localhost/dep/updateJobSalary", this.reviseJobSalaryData).then(res => {
-                    this.selectAll();
                     if ('success' === res.data.msg) {
                         this.success("修改成功");
                     }
                 });
+                this.selectAll();
                 console.log(this.reviseJobSalaryData);
                 // 获取job_id
                 for (let i = 0; i < this.jobList.length; i++) {
@@ -334,53 +342,39 @@
                 }
                 this.reviseJobSalaryVisible = false;
             },
+            // 添加员工按钮
+            addEmployeeButton() {
+                // 获取职位信息
+                this.selectAllJob();
+                // 显示对话框
+                this.dialogVisible = true;
+            },
+            // 提交新员工信息
             submitEmployee() {
                 // console.log(this.newEmpInfo);
+                // 计算年龄
                 // let birthDate = new Date(this.newEmpInfo.birth);
                 // let nowDate = new Date();
                 // this.newEmpInfo.age = nowDate.getFullYear() - birthDate.getFullYear();
 
-                // 新建员工不需要id
-                // this.newEmpInfo.id = Number(this.newEmpInfo.id);
-
+                // 设置部门编号
                 this.newEmpInfo.dep_id = this.selfInfo.dep_id;
-
                 // 提交数据
                 axios.post('http://localhost/dep/addEmp', this.newEmpInfo).then(res => {
                     if (res.data.msg === 'success') {
                         this.success('添加成功,  ' + '员工号为: ' + res.data.id);
                     }
-                    console.log(res.data);
+                    console.log(res.data); // 打印返回的数据
                 });
-                this.selectAll();
-
-                this.dialogVisible = false;
-
                 // 重新查询数据
+                this.selectAll();
+                this.dialogVisible = false;
             },
-            reviseEmp() {
-                console.log(this.detailInfoData);
-                axios.post('http://localhost/dep/updateEmp', this.detailInfoData).then(res => {
-                    if (res.data.msg === 'success') {
-                        this.success('修改成功');
-                    }
-                });
-                this.detailInfoVisible = false;
-            },
-            addEmployeeButton() {
-                // // 获取职位信息
-                // axios.get("http://localhost/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
-                //     this.jobs = res.data.slice(1);
-                // });
-                this.selectAllJob();
-                // 显示对话框
-                this.dialogVisible = true;
-            }
-            ,
+            // 添加职位按钮
             addJobButton() {
                 this.addJobVisible = true;
-            }
-            ,
+            },
+            // 提交新职位信息
             submitNewJob() {
                 this.newJob.dep_id = this.selfInfo.dep_id;
                 axios.post('http://localhost/dep/insertJob', this.newJob).then(res => {
@@ -389,7 +383,10 @@
                     }
                 });
                 this.addJobVisible = false;
+                // 提交后更新数据
+                this.selectAllJob();
             },
+            // 删除员工按钮
             deleteEmpById(row) {
                 if (row.id === this.selfInfo.id) {
                     this.errorMessage('不能删除自己');
@@ -409,31 +406,29 @@
                         }
                     });
                 }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
+                    this.$message({type: 'info', message: '已取消删除'});
                 });
             },
+            // 成功提示
             success(msg) {
                 this.$message({message: msg, type: 'success'});
             },
+            // 错误提示
             errorMessage(msg) {
                 this.$message.error(msg);
             },
+            // 获取所有员工信息
             selectAll() {
-                // 获取所有员工信息
                 axios.get("http://localhost/dep/selectAllEmp?dep_id=" + this.selfInfo.dep_id).then(resp => {
                     this.AllEmpInfo = resp.data;
                 })
             },
+            // 获取职位名称信息
             selectAllJob() {
-                // 获取职位名称信息
                 axios.get("http://localhost/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
                     this.jobs = res.data.slice(1);
                 });
             }
-
         },
         data() {
             const item = {
@@ -445,8 +440,8 @@
                 job_id: 10,
                 job_name: "人事部主管",
                 manager_id: "8002",
-                name: "范明俊",
-                passwd: "020416",
+                name: "测试主管",
+                passwd: "123456",
                 rate: 0.6,
                 salary: 20000,
                 sex: "男",
@@ -498,8 +493,6 @@
                 }],
                 // 修改职位薪资对话框提交的职位信息
                 reviseJobSalaryData: {id: '', job_name: '', salary: ''},
-                // 员工信息, 待删除
-                AllEmpInfo1: Array(20).fill(item)
             }
         }
     })
