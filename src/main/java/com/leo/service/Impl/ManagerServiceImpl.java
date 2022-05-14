@@ -25,6 +25,7 @@ public class ManagerServiceImpl implements ManagerService {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
     
     // 查询所有部门信息方法, 包括: 部门编号, 部门名称, 部门主管编号, 部门主管姓名
+    // 负责人: 王占泽
     public List<HashMap<String, String>> selectAllDepInfo() {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
@@ -34,6 +35,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
     
     // 管理员登录方法, 登录成功返回true, 失败返回false
+    // 负责人: 卢鹏飞
     public boolean login(String name, String passwd) {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
@@ -43,6 +45,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
     
     // 管理员修改密码方法
+    // 负责人: 卢鹏飞
     public boolean changePasswd(String name, String passwd) {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
@@ -53,6 +56,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
     
     // 更新部门的主管
+    // 负责人: 卢鹏飞
     public boolean updateManagerOfDep(int dep_id, int manager_id) {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
@@ -71,6 +75,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
     
     // 根据部门编号查询部门主管编号
+    // 负责人: 卢鹏飞
     public int selectManagerIdOfDep(int dep_id) {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
@@ -85,6 +90,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
     
     // 备份数据库方法
+    // 负责人: 王占泽
     public boolean backupDatabase() throws IOException {
         // todo backup database
         String absPath = new File("").getCanonicalPath(); // 获取项目的绝对路径

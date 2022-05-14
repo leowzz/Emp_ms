@@ -13,6 +13,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
     
     // 登录方法, 登录成功返回员工对象, 失败返回null
+    // 负责人: 卢鹏飞
     public Employee login(int id, String passwd) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -22,6 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     // 员工信息更新方法
+    // 负责人: 王占泽
     public boolean updateEmp(Employee emp) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -32,6 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     // 员工更改密码方法
+    // 负责人: 卢鹏飞
     public boolean changePasswd(int id, String passwd) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
