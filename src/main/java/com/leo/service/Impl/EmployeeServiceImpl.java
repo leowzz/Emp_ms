@@ -15,10 +15,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     // 登录方法, 登录成功返回员工对象, 失败返回null
     // 负责人: 卢鹏飞
     public Employee login(int id, String passwd) {
+        // 获取sqlSession对象
         SqlSession sqlSession = factory.openSession();
+        // 获取mapper对象
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+        // 调用mapper的login方法
         Employee m = mapper.login(id, passwd);
+        // 关闭sqlSession
         sqlSession.close();
+        // 返回结果
         return m;
     }
     

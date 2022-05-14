@@ -29,6 +29,7 @@ public class DepManagerServlet extends BaseServlet {
         //3. 写数据
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
+        
     }
     
     // 通过姓名模糊查询员工信息

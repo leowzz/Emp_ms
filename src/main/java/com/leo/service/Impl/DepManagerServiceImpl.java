@@ -19,10 +19,15 @@ public class DepManagerServiceImpl implements DepManagerService {
     // 根据部门id查询部门下的所有员工
     // 负责人: 范明俊
     public List<Employee> selectAllEmployees(int dep_id) {
+        // 2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
+        // 3. 获取Mapper对象
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
+        // 4. 调用方法
         List<Employee> es = mapper.selectEmployees(dep_id);
+        // 5. 关闭资源
         sqlSession.close();
+        // 6. 返回结果
         return es;
     }
     

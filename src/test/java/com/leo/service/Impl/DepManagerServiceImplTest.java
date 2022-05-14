@@ -35,7 +35,12 @@ public class DepManagerServiceImplTest {
         for (Employee e : es) {
             System.out.println(e);
         }
-        
+    }
+    
+    @Test
+    public void selectManagerIdOfDep(){
+        ManagerServiceImpl managerService = new ManagerServiceImpl();
+        System.out.println(managerService.selectManagerIdOfDep(2));
     }
     
     @Test

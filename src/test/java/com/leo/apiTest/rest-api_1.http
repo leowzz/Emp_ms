@@ -3,7 +3,6 @@ Content-Type: application/json
 
 {"id":8001,"name": "test","passwd": "031214"}
 
-
 ###
 GET http://localhost/man/getAllDepInfo
 Accept: application/json

@@ -37,10 +37,15 @@ public class ManagerServiceImpl implements ManagerService {
     // 管理员登录方法, 登录成功返回true, 失败返回false
     // 负责人: 卢鹏飞
     public boolean login(String name, String passwd) {
+        // 获取sqlSession对象
         SqlSession sqlSession = factory.openSession();
+        // 获取mapper对象
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
+        // 调用方法
         Manager m = mapper.login(name, passwd);
+        // 关闭sqlSession
         sqlSession.close();
+        // 判断是否为空
         return m != null;
     }
     
@@ -92,7 +97,6 @@ public class ManagerServiceImpl implements ManagerService {
     // 备份数据库方法
     // 负责人: 王占泽
     public boolean backupDatabase() throws IOException {
-        // todo backup database
         String absPath = new File("").getCanonicalPath(); // 获取项目的绝对路径
         String savePath = absPath + separator + "bak\\databaseBacks\\"; // 文件备份路径
         File saveFile = new File(savePath);
@@ -115,35 +119,9 @@ public class ManagerServiceImpl implements ManagerService {
                 System.out.println("备份失败");
                 return false;
             }
-        } catch (InterruptedException | IOException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return false;
-        /*
-    public static void backup() throws IOException {
-        String absPath = new File("").getCanonicalPath(); // 获取项目的绝对路径
-        String savePath = absPath + separator + "bak\\databaseBacks\\"; // 文件备份路径
-        File saveFile = new File(savePath);
-        if (!saveFile.exists()) {// 如果目录不存在
-            boolean f = saveFile.mkdirs();// 创建文件夹
-            System.out.println("目录不存在, 创建文件夹" + absPath + separator + savePath + "成功：" + f);
-        }
-        if (!savePath.endsWith(separator)) {
-            savePath = savePath + separator;
-        }
-        try {
-            String fileName = get_time() + ".txt";
-            String command = "cmd /c mysqldump -u leo -p031214 --set-charset=UTF8 emp_ms > " + savePath + fileName;
-            Process process = Runtime.getRuntime().exec(command);
-            if (process.waitFor() == 0) {
-                // 0 表示线程正常终止。
-                System.out.println("备份成功, 备份文件路径为：\n" + savePath + fileName);
-            } else
-                System.out.println("备份失败");
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-        */
     }
 }

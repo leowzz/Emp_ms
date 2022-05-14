@@ -23,7 +23,6 @@ public interface EmpMapper {
             "e.dep_id = d.id and e.job_id = job.id and e.name=#{name};")
     List<Employee> selectInfoByName(String name);
     
-    
     @Select("select id from emp_ms.employee where name = #{name};")
     int selectIdByName(String name);
     

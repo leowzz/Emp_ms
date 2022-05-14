@@ -36,13 +36,9 @@ public class EmpServlet extends BaseServlet {
             System.out.println("登录成功");
             //2. 转为JSON
             String jsonString = JSON.toJSONString(loginEmp);
-            
             //3. 写数据
             res.setContentType("text/json;charset=utf-8");
             res.getWriter().write(jsonString);
-//            HttpSession session = req.getSession();
-//            session.setAttribute("employee", employee);
-            
         }else {
             System.out.println("登录失败");
             res.getWriter().write("false");
