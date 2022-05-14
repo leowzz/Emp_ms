@@ -84,7 +84,7 @@ public class DepManagerServiceImpl implements DepManagerService {
         return jobs;
     }
     
-    // 查询部门下所有职位的详细名称
+    // 查询部门下所有职位的详细信息
     public List<Job> selectJobInfos(int dep_id) {
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);

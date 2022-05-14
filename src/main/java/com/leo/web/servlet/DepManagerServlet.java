@@ -19,6 +19,7 @@ import java.util.List;
 public class DepManagerServlet extends BaseServlet {
     DepManagerService depManagerService = new DepManagerServiceImpl();
     
+    // 查询所有员工信息
     public void selectAllEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 调用service查询
         int dep_id = Integer.parseInt(request.getParameter("dep_id"));
@@ -30,6 +31,7 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
+    // 通过姓名模糊查询员工信息
     public void searchEmployeesByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
         int dep_id = Integer.parseInt(request.getParameter("dep_id"));
@@ -43,12 +45,17 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
+    /*
+     * 添加员工方法
+     * 通过request获取要添加的员工信息, 不包括编号
+     * 调用service层的createEmp方法, 调用成功后mapper层的方法回将新建员工的编号设置给传过去的employee对象
+     * 将新建的员工编号写入response返回给前端
+     */
     public void addEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
         String params = br.readLine();//json字符串
         System.out.println("json: " + params);
-//        int id = (Integer) JSON.parseObject(params).get("id");
         //转为Employee对象
         Employee employee = JSON.parseObject(params, Employee.class);
         System.out.println(employee);
@@ -59,6 +66,7 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write("{\"msg\":\"success\",\"id\":" + employee.getId() + "}");
     }
     
+    // 获取所有职位名称
     public void selectJobNames(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int dep_id = Integer.parseInt(request.getParameter("dep_id"));
         //1. 调用service查询
@@ -70,6 +78,7 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
+    // 获取所有职位详细信息
     public void selectJobInfos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int dep_id = Integer.parseInt(request.getParameter("dep_id"));
         List<Job> jobs = depManagerService.selectJobInfos(dep_id);
@@ -78,11 +87,12 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
+    // 更新员工信息
     public void updateEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
         String params = br.readLine();//json字符串
-        System.out.println("json: " + params);
+        System.out.println("json:" + params);
         //转为Employee对象
         Employee employee = JSON.parseObject(params, Employee.class);
         System.out.println(employee);
@@ -93,6 +103,7 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write("{\"msg\":\"success\"}");
     }
     
+    // 新建职位
     public void insertJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
@@ -108,6 +119,7 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write("{\"msg\":\"success\",\"id\":" + job.getId() + "}");
     }
     
+    // 更新职位薪资
     public void updateJobSalary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
@@ -123,6 +135,7 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write("{\"msg\":\"success\"}");
     }
     
+    // 删除员工
     public void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         int emp_id = Integer.parseInt(request.getParameter("emp_id"));
@@ -133,16 +146,4 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write("{\"msg\":\"success\"}");
     }
     
-    
-//    public void selectJobIdByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        //1. 调用service查询
-//        request.getCharacterEncoding();
-//        String name = new String(request.getParameter("job_name").getBytes("ISO-8859-1"), "UTF-8");
-//        int job_id = depManagerService.selectJobIdByName(name);
-//        //2. 转为JSON
-//        String jsonString = JSON.toJSONString(job_id);
-//        //3. 写数据
-//        response.setContentType("text/json;charset=utf-8");
-//        response.getWriter().write(jsonString);
-//    }
 }
