@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +28,14 @@ public class ManagerServiceImplTest {
         
         for (HashMap<String, String> map : maps) {
             for (String s : map.keySet()) {
-                System.out.println(s);
+//                System.out.println(s);
                 Object o = map.get(s);
                 if (o instanceof Integer)
-                    System.out.println(o.toString());
+                    System.out.print(o.toString() + " ");
                 else
-                    System.out.println(map.get(s));
+                    System.out.print(o + " ");
             }
+            System.out.println("\n-----------------");
         }
     }
     
@@ -42,17 +44,24 @@ public class ManagerServiceImplTest {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
         Manager m = mapper.login("leo", "031214");
+        System.out.println(m);
         sqlSession.close();
-//        return m != null;
     }
+    
     @Test
-    public void TestUser(){
-        System.out.println(JSON.toJSONString(new user(12,"55")));
+    public void TestUser() {
+        System.out.println(JSON.toJSONString(new user(12, "55")));
+    }
+    
+    @Test
+    public void TestBackup() throws IOException {
+        ManagerServiceImpl managerService = new ManagerServiceImpl();
+        managerService.backupDatabase();
     }
 }
 
 
-class user{
+class user {
     int id;
     String name;
     

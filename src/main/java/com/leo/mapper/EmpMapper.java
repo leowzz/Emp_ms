@@ -22,7 +22,6 @@ public interface EmpMapper {
     @Select("select id from emp_ms.employee where name = #{name};")
     int selectIdByName(String name);
     
-    
     int createEmp(Employee emp);
     
     @Update("update emp_ms.employee set passwd = #{passwd} where id = #{id};")
@@ -33,16 +32,15 @@ public interface EmpMapper {
             "tel = #{tel} where id = #{id};")
     void updateEmp(Employee emp);
     
+    //    @Select("select id,name, passwd, birth, tel from emp_ms.employee where id = #{id} and passwd = #{passwd} ;")
     @Select("select e.id, e.name, e.tel, e.sex, e.address, e.rate, e.cardId, job.salary," +
             "e.dep_id, e.job_id, job.job_name, d.manager_id, d.dep_name, e.birth, e.passwd " +
             "from emp_ms.employee as e, emp_ms.department as d, emp_ms.job where " +
             "e.dep_id = d.id and e.job_id = job.id and e.id = #{id} and e.passwd = #{passwd};")
-//    @Select("select id,name, passwd, birth, tel from emp_ms.employee where id = #{id} and passwd = #{passwd} ;")
     Employee login(@Param("id") int id, @Param("passwd") String passwd);
     
     
     @Delete("delete from emp_ms.employee where id = #{id};")
     void deleteEmpById(int id);
-    
     
 }

@@ -17,15 +17,10 @@ public class DepManagerServiceImplTest {
     
     @Test
     public void selectJobsTest() {
-        //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
-        //3. 获取BrandMapper
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
-        
-        //4. 调用方法
         String[] jobs = mapper.selectJobs(1);
         System.out.println(jobs);
-        //5. 释放资源
         sqlSession.close();
         for (String job : jobs) {
             System.out.println(job);
@@ -35,12 +30,12 @@ public class DepManagerServiceImplTest {
     
     @Test
     public void testSelectEmployeesByName() {
-        List<Employee> es = depManagerService.searchEmployeesByName("苗无光",2);
+        List<Employee> es = depManagerService.searchEmployeesByName("苗无光", 2);
         System.out.println(es);
         for (Employee e : es) {
             System.out.println(e);
         }
-    
+        
     }
     
     @Test
@@ -62,6 +57,5 @@ public class DepManagerServiceImplTest {
         employee.setJob_name("会计");
         depManagerService.insertEmp(employee);
         System.out.println(employee.getId());
-        
     }
 }

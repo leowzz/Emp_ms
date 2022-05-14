@@ -7,9 +7,12 @@ import com.leo.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+// 普通员工service实现类
 public class EmployeeServiceImpl implements EmployeeService {
+    // 创建工厂对象, 以便获取mapper对象
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
     
+    // 登录方法, 登录成功返回员工对象, 失败返回null
     public Employee login(int id, String passwd) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -18,6 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return m;
     }
     
+    // 员工信息更新方法
     public boolean updateEmp(Employee emp) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -27,6 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return true;
     }
     
+    // 员工更改密码方法
     public boolean changePasswd(int id, String passwd) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);

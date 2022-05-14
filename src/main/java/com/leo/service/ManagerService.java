@@ -1,5 +1,6 @@
 package com.leo.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,5 +14,5 @@ public interface ManagerService {
     
     boolean updateManagerOfDep(int dep_id, int manager_id);
     
-    boolean backupDatabase();
+    boolean backupDatabase() throws IOException;
 }

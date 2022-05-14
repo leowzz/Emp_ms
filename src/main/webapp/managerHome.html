@@ -129,6 +129,9 @@
             <el-button style="float: right; padding: 3px 0; margin-right: 20px"
                        type="text" @click="changePasswdButton">修改密码
             </el-button>
+            <el-button style="float: right; padding: 3px 0; margin-right: 10px; color: #7DC23A"
+                       type="text" @click="backup">备份数据库
+            </el-button>
         </div>
         <div class="text item">
             <template>
@@ -273,6 +276,14 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            backup() {
+                axios.get("http://localhost/man/backupDatabase").then(res => {
+                    if ('success' === res.data)
+                        this.success('备份成功')
+                    else
+                        this.errorMessage('备份失败')
+                })
             }
         },
         data() {
