@@ -21,6 +21,8 @@ create table if not exists `emp_ms`.`employee`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+# 在员工表中姓名字段添加索引
+CREATE INDEX idx_name ON emp_ms.employee (name);
 # update `emp_ms`.`employee`
 # set `id` = id + 8000
 # where id < 7000;
@@ -124,5 +126,6 @@ select d.id, d.dep_name, d.manager_id, e.name
 from department as d
          join employee as e on d.manager_id = e.id;
 
-select * from emp_ms.view_all_dep_info;
+select *
+from emp_ms.view_all_dep_info;
 

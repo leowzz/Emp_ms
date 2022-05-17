@@ -229,7 +229,7 @@
                 this.changePasswdVisible = true;
             },
             getDepInfo() {
-                axios.get("http://localhost/man/getAllDepInfo").then(res => {
+                axios.get("http://" + this.host + "/man/getAllDepInfo").then(res => {
                     this.depInfos = res.data;
                 })
             },
@@ -239,7 +239,7 @@
                 console.log(row);
             },
             submitDepManager() {
-                axios.get("http://localhost/man/updateManagerOfDep?d_id=" +
+                axios.get("http://" + this.host + "/man/updateManagerOfDep?d_id=" +
                     this.reviseDepManagerData.id +
                     "&m_id=" + this.reviseDepManagerData.manager_id).then(res => {
                     if ('success' === res.data) {
@@ -261,7 +261,7 @@
                 this.changePasswdVisible = false;
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.get("http://localhost/man/changePasswd?name=" + this.selfManagerInfo.name +
+                        axios.get("http://" + this.host + "/man/changePasswd?name=" + this.selfManagerInfo.name +
                             "&newPasswd=" + this.newPasswdForm.checkPass).then(res => {
                             if ('success' === res.data)
                                 this.success('修改成功')
@@ -278,7 +278,7 @@
                 this.$refs[formName].resetFields();
             },
             backup() {
-                axios.get("http://localhost/man/backupDatabase").then(res => {
+                axios.get("http://" + this.host + "/man/backupDatabase").then(res => {
                     if ('success' === res.data)
                         this.success('备份成功')
                     else
@@ -307,6 +307,8 @@
                 }
             };
             return {
+                // host: 'localhost',
+                host: 'wzzleo.vaiwan.com',
                 newPasswdForm: {
                     pass: '',
                     checkPass: '',

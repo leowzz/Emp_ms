@@ -7,6 +7,7 @@
         .el-row {
             margin-bottom: 20px;
         }
+
         .el-col {
             border-radius: 4px;
         }
@@ -240,7 +241,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         console.log(this.newPasswdForm);
-                        axios.get("http://localhost/emp/changePasswd?id=" + this.selfInfo.id +
+                        axios.get("http://" + this.host + "/emp/changePasswd?id=" + this.selfInfo.id +
                             "&newPasswd=" + this.newPasswdForm.checkPass).then(res => {
                             if ('success' === res.data)
                                 this.success('修改成功')
@@ -265,7 +266,7 @@
             submitChangeInfo() {
                 this.$confirm('确认提交？').then(_ => {
                     console.log(this.detailInfoData);
-                    axios.post('http://localhost/emp/updateSelfInfo', this.selfInfo).then(res => {
+                    axios.post('http://' + this.host + '/emp/updateSelfInfo', this.selfInfo).then(res => {
                         if (res.data.msg === 'success') {
                             this.success('修改成功');
                         }
@@ -309,6 +310,8 @@
                 }
             };
             return {
+                // host: 'localhost',
+                host: 'wzzleo.vaiwan.com',
                 showSalaryVisible: false,
                 changePwdVisible: false,
                 selfInfo: {
@@ -323,7 +326,7 @@
                     address: "测试地址",
                     birth: "2019-01-01",
                     dep_name: "测试部门",
-                    passwd:'123456',
+                    passwd: '123456',
                 },
                 newPasswdForm: {
                     pass: '',

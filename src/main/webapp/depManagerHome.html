@@ -287,7 +287,7 @@
                     this.selectAll();
                 } else {
                     this.queryInfo.dep_id = this.selfInfo.dep_id;
-                    axios.get("http://localhost/dep/searchEmployeesByName?name=" + this.queryInfo.name +
+                    axios.get("http://" + this.host + "/dep/searchEmployeesByName?name=" + this.queryInfo.name +
                         "&dep_id=" + this.queryInfo.dep_id).then(res => {
                         this.AllEmpInfo = res.data;
                     })
@@ -310,7 +310,7 @@
             // 员工详细信息内修改按钮
             reviseEmp() {
                 console.log(this.detailInfoData); // 打印修改后的数据
-                axios.post('http://localhost/dep/updateEmp', this.detailInfoData).then(res => {
+                axios.post('http://' + this.host + '/dep/updateEmp', this.detailInfoData).then(res => {
                     if (res.data.msg === 'success') {
                         this.success('修改成功');
                     }
@@ -319,14 +319,14 @@
             },
             // 修改职位工资按钮
             reviseJobSalary() {
-                axios.get("http://localhost/dep/selectJobInfos?dep_id=" + this.selfInfo.dep_id).then(res => {
+                axios.get("http://" + this.host + "/dep/selectJobInfos?dep_id=" + this.selfInfo.dep_id).then(res => {
                     this.jobList = res.data.slice(1);
                 });
                 this.reviseJobSalaryVisible = true;
             },
             // 修改职位工资 提交按钮
             submitJobSalary() {
-                axios.post("http://localhost/dep/updateJobSalary", this.reviseJobSalaryData).then(res => {
+                axios.post("http://" + this.host + "/dep/updateJobSalary", this.reviseJobSalaryData).then(res => {
                     if ('success' === res.data.msg) {
                         this.success("修改成功");
                     }
@@ -360,7 +360,7 @@
                 // 设置部门编号
                 this.newEmpInfo.dep_id = this.selfInfo.dep_id;
                 // 提交数据
-                axios.post('http://localhost/dep/addEmp', this.newEmpInfo).then(res => {
+                axios.post('http://' + this.host + '/dep/addEmp', this.newEmpInfo).then(res => {
                     if (res.data.msg === 'success') {
                         this.success('添加成功,  ' + '员工号为: ' + res.data.id);
                     }
@@ -377,7 +377,7 @@
             // 提交新职位信息
             submitNewJob() {
                 this.newJob.dep_id = this.selfInfo.dep_id;
-                axios.post('http://localhost/dep/insertJob', this.newJob).then(res => {
+                axios.post('http://' + this.host + '/dep/insertJob', this.newJob).then(res => {
                     if (res.data.msg === 'success') {
                         this.success('添加成功, 职位编号为: ' + res.data.id);
                     }
@@ -397,7 +397,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    axios.get("http://localhost/dep/deleteEmployee?emp_id=" + row.id).then(res => {
+                    axios.get("http://" + this.host + "/dep/deleteEmployee?emp_id=" + row.id).then(res => {
                         if (res.data.msg !== 'success') {
                             this.errorMessage('删除失败');
                         } else {
@@ -419,13 +419,13 @@
             },
             // 获取所有员工信息
             selectAll() {
-                axios.get("http://localhost/dep/selectAllEmp?dep_id=" + this.selfInfo.dep_id).then(resp => {
+                axios.get("http://" + this.host + "/dep/selectAllEmp?dep_id=" + this.selfInfo.dep_id).then(resp => {
                     this.AllEmpInfo = resp.data;
                 })
             },
             // 获取职位名称信息
             selectAllJob() {
-                axios.get("http://localhost/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
+                axios.get("http://" + this.host + "/dep/selectJobNames?dep_id=" + this.selfInfo.dep_id).then(res => {
                     this.jobs = res.data.slice(1);
                 });
             }
@@ -448,6 +448,8 @@
                 tel: "15464656546"
             };
             return {
+                // host: 'localhost',
+                host: 'wzzleo.vaiwan.com',
                 selfInfo: {
                     name: '测试人',
                     dep_id: 2,
