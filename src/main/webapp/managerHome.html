@@ -263,9 +263,13 @@
                     if (valid) {
                         axios.get("http://" + this.host + "/man/changePasswd?name=" + this.selfManagerInfo.name +
                             "&newPasswd=" + this.newPasswdForm.checkPass).then(res => {
-                            if ('success' === res.data)
+                            if ('success' === res.data) {
                                 this.success('修改成功')
-                            else
+                                // 有一种情况, 更改部门主管成功了, 但是更改之后该员工登录后依旧为普通员工界面,
+                                // 因为登录是员工的所属部门主管编号是根据部门查找的,
+                                // 这种情况属于误操作, 也就是把不是这个部门的员工改成了部门主管
+                                this.getDepInfo();
+                            } else
                                 this.errorMessage('修改失败')
                         });
                     } else {
@@ -307,8 +311,8 @@
                 }
             };
             return {
-                // host: 'localhost',
-                host: 'wzzleo.vaiwan.com',
+                host: 'localhost',
+                // host: 'wzzleo.vaiwan.com',
                 newPasswdForm: {
                     pass: '',
                     checkPass: '',
