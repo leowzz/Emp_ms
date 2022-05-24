@@ -35,17 +35,17 @@ CREATE INDEX idx_name ON emp_ms.employee (name);
 # alter table `employee`
 #     drop column `dep_id`;
 
-alter table `employee`
+alter table emp_ms.`employee`
     add index idx_emp_id (`id`);
 
-alter table `employee`
+alter table emp_ms.`employee`
     modify sex nchar(2) not null;
 
-alter table `employee`
+alter table emp_ms.`employee`
     add FOREIGN KEY (`dep_id`)
         REFERENCES `department` (`id`);
 
-alter table `employee`
+alter table emp_ms.`employee`
     add FOREIGN KEY (`job_id`)
         REFERENCES `job` (`id`);
 
@@ -68,10 +68,10 @@ create table if not exists `emp_ms`.`department`
 
 # alter table `department`
 #     change dap_name dep_name varchar(255) not null;
-alter table `department`
+alter table emp_ms.`department`
     add index idx_mag_id (`manager_id`);
 
-alter table `department`
+alter table emp_ms.`department`
     add foreign key (`manager_id`) references `employee` (`id`);
 
 
@@ -96,9 +96,9 @@ create table if not exists `emp_ms`.`job`
 # alter table job
 #     add column salary int(11) not null;
 
-alter table `job`
+alter table emp_ms.`job`
     add foreign key (`dep_id`) references `department` (`id`) on delete cascade on update cascade;
-alter table `job`
+alter table emp_ms.`job`
     add index `name_idx` (`job_name`);
 
 # 创建管理员表
@@ -117,14 +117,15 @@ create table if not exists `emp_ms`.`manager`
 # 视图
 create view `emp_ms`.`view_all_dep_info` as
 select d.id 部门编号, d.dep_name 部门名称, e.id 部门主管编号, e.name 部门主管名称
-from department d
-         join employee e
+from emp_ms.department d
+         join emp_ms.employee e
               on d.manager_id = e.id;
 
+# 创建管理员界面主要视图
 create view emp_ms.view_all_dep_info as
 select d.id, d.dep_name, d.manager_id, e.name
-from department as d
-         join employee as e on d.manager_id = e.id;
+from emp_ms.department as d
+         join emp_ms.employee as e on d.manager_id = e.id;
 
 select *
 from emp_ms.view_all_dep_info;
