@@ -1,17 +1,16 @@
 package com.leo.web.servlet;
 
 
-import com.alibaba.fastjson.JSON;
 import com.leo.pojo.Employee;
-import com.leo.pojo.Manager;
 import com.leo.service.EmployeeService;
 import com.leo.service.Impl.EmployeeServiceImpl;
+
+import com.alibaba.fastjson.JSON;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 

@@ -2,9 +2,9 @@ package com.leo.mapper;
 
 import com.leo.pojo.Employee;
 import com.leo.pojo.Job;
+
 import org.apache.ibatis.annotations.*;
 
-import javax.jws.WebResult;
 import java.util.List;
 
 // 部门主管Mapper

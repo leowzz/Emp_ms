@@ -8,7 +8,7 @@ Accept: application/json
 
 
 ###
-GET http://localhost/dep/selectJobNames
+GET http://localhost/dep/selectJobNames?dep_id=2
 Accept: application/json
 
 ###
@@ -34,6 +34,4 @@ Accept: application/json
 <> 2022-05-09T105227.200.json
 <> 2022-05-09T104805.200.json
 
-###
-GET http://localhost/dep/selectJobNames?dep_id=3
-Accept: application/json
+

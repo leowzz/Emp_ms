@@ -1,13 +1,13 @@
 package com.leo.mapper;
 
 import com.leo.pojo.Manager;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 // 管理员mapper
 public interface ManagerMapper {

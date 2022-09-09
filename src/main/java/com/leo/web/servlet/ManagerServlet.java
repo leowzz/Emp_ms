@@ -1,10 +1,10 @@
 package com.leo.web.servlet;
 
-import com.alibaba.fastjson.JSON;
-import com.leo.pojo.Employee;
 import com.leo.pojo.Manager;
 import com.leo.service.Impl.ManagerServiceImpl;
 import com.leo.service.ManagerService;
+
+import com.alibaba.fastjson.JSON;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

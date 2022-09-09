@@ -21,8 +21,9 @@ create table if not exists `emp_ms`.`employee`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+CREATE INDEX idx_name ON emp_ms.department(dep_name);
 # 在员工表中姓名字段添加索引
-CREATE INDEX idx_name ON emp_ms.employee (name);
+CREATE INDEX idx_name ON emp_ms.employee(name);
 # update `emp_ms`.`employee`
 # set `id` = id + 8000
 # where id < 7000;
@@ -130,3 +131,15 @@ from emp_ms.department as d
 select *
 from emp_ms.view_all_dep_info;
 
+# 创建员工编号, 姓名, 密码, 部门视图
+create view id_name_passwd as
+select emp_ms.employee.id         as 编号,
+       emp_ms.employee.name       as 姓名,
+       emp_ms.employee.passwd     as 密码,
+       emp_ms.department.dep_name as 部门名称
+from employee,
+     department
+where employee.dep_id = department.id
+  and department.id = 2;
+
+select * from id_name_passwd;
