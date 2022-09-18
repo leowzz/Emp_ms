@@ -24,8 +24,8 @@ public class EmpServlet extends BaseServlet {
                       HttpServletResponse res) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = req.getReader();
-        logger.info("req read: {}", br.readLine());
         String params = br.readLine();//json字符串
+        logger.info("req read: {}", params);
         //转为Employee对象
         Employee employee = JSON.parseObject(params, Employee.class);
         if (employee == null) {
