@@ -3,9 +3,13 @@ package com.leo.web.servlet;
 import com.leo.pojo.Employee;
 import com.leo.pojo.Job;
 import com.leo.service.DepManagerService;
+import com.leo.service.EmployeeService;
 import com.leo.service.Impl.DepManagerServiceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.leo.service.Impl.EmployeeServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @WebServlet("/dep/*")
 public class DepManagerServlet extends BaseServlet {
     DepManagerService depManagerService = new DepManagerServiceImpl();
+    EmployeeService employeeService = new EmployeeServiceImpl();
+    private static final Logger logger = LoggerFactory.getLogger(DepManagerServlet.class);
+    
     
     // 查询所有员工信息
     public void selectAllEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +42,7 @@ public class DepManagerServlet extends BaseServlet {
     
     // 通过姓名模糊查询员工信息
     public void searchEmployeesByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
+        String name = new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         int dep_id = Integer.parseInt(request.getParameter("dep_id"));
         //1. 调用service查询
         List<Employee> employees = depManagerService.searchEmployeesByName(name, dep_id);
@@ -55,10 +63,14 @@ public class DepManagerServlet extends BaseServlet {
     public void addEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
-        System.out.println("json: " + params);
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
+        logger.info("json: {}", params);
         //转为Employee对象
-        Employee employee = JSON.parseObject(params, Employee.class);
+        Employee employee = JSON.parseObject(String.valueOf(params), Employee.class);
         System.out.println(employee);
         //2. 调用service添加
         depManagerService.insertEmp(employee);
@@ -92,13 +104,29 @@ public class DepManagerServlet extends BaseServlet {
     public void updateEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
-        System.out.println("json:" + params);
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
+        logger.info("json: {}", params);
         //转为Employee对象
-        Employee employee = JSON.parseObject(params, Employee.class);
-        System.out.println(employee);
+        Employee emp = JSON.parseObject(String.valueOf(params), Employee.class);
+        if (emp == null) {
+            logger.error("json解析错误: {}", params);
+            response.getWriter().write("err");
+            return;
+        }
+        logger.info("emp: {}", emp);
+        // 通过编号和密码查询员工信息, 判断是否合法
+        Employee selectEmp = employeeService.login(emp.getId(), emp.getPasswd());
+        if (selectEmp == null) {
+            logger.info("密码错误: {}", emp);
+            response.getWriter().write("false");
+            return;
+        }
         //2. 调用service更新
-        depManagerService.updateEmp(employee);
+        depManagerService.updateEmp(emp);
         //3. 返回结果
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write("{\"msg\":\"success\"}");
@@ -108,10 +136,14 @@ public class DepManagerServlet extends BaseServlet {
     public void insertJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
         System.out.println("json: " + params);
         //转为Job对象
-        Job job = JSON.parseObject(params, Job.class);
+        Job job = JSON.parseObject(String.valueOf(params), Job.class);
         System.out.println(job);
         //2. 调用service更新
         depManagerService.insertJob(job);
@@ -124,10 +156,14 @@ public class DepManagerServlet extends BaseServlet {
     public void updateJobSalary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
         System.out.println("json: " + params);
         //转为Job对象
-        Job job = JSON.parseObject(params, Job.class);
+        Job job = JSON.parseObject(String.valueOf(params), Job.class);
         System.out.println(job);
         //2. 调用service更新
         depManagerService.updateJobSalary(job);

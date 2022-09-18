@@ -1,17 +1,52 @@
 POST http://localhost:80/emp/login
 Content-Type: application/json
 
-{"id":8001,"passwd": "031214"}
+{
+  "id": 8001,
+  "passwd": "031214"
+}
+
 ###
 POST http://localhost:80/emp/login
 Content-Type: application/json
 
-{"id":8002,"passwd": "123456"}
+{
+  "id": 8002,
+  "passwd": "123456"
+}
+
 ###
 POST http://localhost:80/emp/login
 Content-Type: application/json
 
-{"id":8001,"passwd": "123456"}
+{
+  "id": 8001,
+  "passwd": "123456"
+}
+
+###
+
+POST http://localhost/emp/updateSelfInfo
+Content-Type: application/json
+
+{
+  "address": "福建省厦门市",
+  "birth": "1984-10-28",
+  "cardId": "350200198410283726",
+  "dep_id": 4,
+  "dep_name": "生产部",
+  "id": 8060,
+  "job_id": 4,
+  "job_name": "财务总监",
+  "manager_id": 8003,
+  "name": "俞中竹",
+  "passwd": "123456",
+  "rate": 0.0,
+  "salary": 22000.0,
+  "sex": "女",
+  "tel": "18995513128"
+}
+
 ###
 
 

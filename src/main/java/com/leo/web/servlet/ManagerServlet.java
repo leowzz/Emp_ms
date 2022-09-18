@@ -35,10 +35,14 @@ public class ManagerServlet extends BaseServlet {
                       HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
         BufferedReader br = request.getReader();
-        String params = br.readLine();//json字符串
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
         System.out.println(params);
         //转为Manager对象
-        Manager manager = JSON.parseObject(params, Manager.class);
+        Manager manager = JSON.parseObject(String.valueOf(params), Manager.class);
         System.out.println(manager);
         //2. 调用service查询
         boolean loginFlag = managerService.login(manager.getName(), manager.getPasswd());
