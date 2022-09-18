@@ -1,0 +1,17 @@
+POST http://localhost:80/emp/login
+Content-Type: application/json
+
+{"id":8001,"passwd": "031214"}
+###
+POST http://localhost:80/emp/login
+Content-Type: application/json
+
+{"id":8002,"passwd": "123456"}
+###
+POST http://localhost:80/emp/login
+Content-Type: application/json
+
+{"id":8001,"passwd": "123456"}
+###
+
+

@@ -1,5 +1,8 @@
 package com.leo.web.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class BaseServlet extends HttpServlet {
-    
+    private static final Logger logger = LoggerFactory.getLogger(EmpServlet.class);
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // 获取请求路径
@@ -29,10 +32,16 @@ public class BaseServlet extends HttpServlet {
             method.invoke(this, req, res);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+            logger.warn(e.getLocalizedMessage());
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+            logger.warn(e.getLocalizedMessage());
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            logger.warn(e.getLocalizedMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.warn(e.getLocalizedMessage());
         }
     }
 }

@@ -1,20 +1,17 @@
 package com.leo.service.Impl;
 
 import com.alibaba.fastjson.JSON;
-import com.leo.mapper.DepManagerMapper;
 import com.leo.mapper.ManagerMapper;
-import com.leo.pojo.Employee;
 import com.leo.pojo.Manager;
 import com.leo.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.HashMap;
+import java.io.IOException;
 
 public class ManagerServiceImplTest {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
@@ -48,41 +45,40 @@ public class ManagerServiceImplTest {
         sqlSession.close();
     }
     
-    @Test
-    public void TestUser() {
-        System.out.println(JSON.toJSONString(new user(12, "55")));
-    }
     
     @Test
     public void TestBackup() throws IOException {
         ManagerServiceImpl managerService = new ManagerServiceImpl();
         managerService.backupDatabase();
     }
+    
+    @Test
+    public void selectAllDepInfo() {
+    }
+    
+    @Test
+    public void login() {
+    }
+    
+    @Test
+    public void changePasswd() {
+    }
+    
+    @Test
+    public void updateManagerOfDep() {
+    }
+    
+    @Test
+    public void selectManagerIdOfDep() {
+    }
+    
+    @Test
+    public void get_time() {
+    }
+    
+    @Test
+    public void backupDatabase() {
+    }
+    
 }
 
-
-class user {
-    int id;
-    String name;
-    
-    public user(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-    
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-}

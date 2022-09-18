@@ -10,33 +10,24 @@ import org.junit.Test;
 public class EmployeeServiceImplTest {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
     
-    @Test
-    public void insertEmpTest(){
-        SqlSession sqlSession = factory.openSession();
-        EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
-        Employee e = new Employee("test", "test", "男", "202123555566664444", "2022-05-07",
-                "test", "13113311331", 2, 1);
-        mapper.createEmp(e);
-        sqlSession.commit();
-        sqlSession.close();
-    }
     
     @Test
-    public void deleteEmpByIdTest(){
+    public void login() {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
-        mapper.deleteEmpById(8501);
-    
-        sqlSession.commit();
-        sqlSession.close();
-    }
-    
-    @Test
-    public void TestLogin() {
-        SqlSession sqlSession = factory.openSession();
-        EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+        
         Employee e = mapper.login(8001, "031214");
         System.out.println(e);
+        
         sqlSession.close();
+    }
+    
+    
+    @Test
+    public void updateEmp() {
+    }
+    
+    @Test
+    public void changePasswd() {
     }
 }

@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DepManagerServiceImplTest {
@@ -17,15 +18,16 @@ public class DepManagerServiceImplTest {
     
     @Test
     public void selectJobsTest() {
+        // 初始化
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
+        // 测试部分
         String[] jobs = mapper.selectJobs(1);
-        System.out.println(jobs);
+        System.out.println(Arrays.toString(jobs));
+        
+        
+        // 收尾部分
         sqlSession.close();
-        for (String job : jobs) {
-            System.out.println(job);
-            
-        }
     }
     
     @Test
@@ -62,5 +64,57 @@ public class DepManagerServiceImplTest {
         employee.setJob_name("会计");
         depManagerService.insertEmp(employee);
         System.out.println(employee.getId());
+    }
+    
+    @Test
+    public void selectAllEmployees() {
+    }
+    
+    @Test
+    public void searchEmployeesByName() {
+    }
+    
+    @Test
+    public void selectById() {
+    }
+    
+    @Test
+    public void selectByName() {
+    }
+    
+    @Test
+    public void selectIdByName() {
+    }
+    
+    @Test
+    public void selectJobIdByName() {
+    }
+    
+    @Test
+    public void selectJobs() {
+    }
+    
+    @Test
+    public void selectJobInfos() {
+    }
+    
+    @Test
+    public void insertEmp() {
+    }
+    
+    @Test
+    public void insertJob() {
+    }
+    
+    @Test
+    public void updateJobSalary() {
+    }
+    
+    @Test
+    public void updateEmp() {
+    }
+    
+    @Test
+    public void deleteEmp() {
     }
 }
