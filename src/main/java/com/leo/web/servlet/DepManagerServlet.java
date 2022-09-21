@@ -62,6 +62,7 @@ public class DepManagerServlet extends BaseServlet {
      */
     public void addEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
+        request.setCharacterEncoding("UTF-8");
         BufferedReader br = request.getReader();
         StringBuilder params = new StringBuilder();
         String line;
@@ -103,6 +104,7 @@ public class DepManagerServlet extends BaseServlet {
     // 更新员工信息
     public void updateEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
+        request.setCharacterEncoding("UTF-8");
         BufferedReader br = request.getReader();
         StringBuilder params = new StringBuilder();
         String line;
@@ -118,13 +120,6 @@ public class DepManagerServlet extends BaseServlet {
             return;
         }
         logger.info("emp: {}", emp);
-        // 通过编号和密码查询员工信息, 判断是否合法
-        Employee selectEmp = employeeService.login(emp.getId(), emp.getPasswd());
-        if (selectEmp == null) {
-            logger.info("密码错误: {}", emp);
-            response.getWriter().write("false");
-            return;
-        }
         //2. 调用service更新
         depManagerService.updateEmp(emp);
         //3. 返回结果
@@ -135,13 +130,14 @@ public class DepManagerServlet extends BaseServlet {
     // 新建职位
     public void insertJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 接收数据
+        request.setCharacterEncoding("UTF-8");
         BufferedReader br = request.getReader();
         StringBuilder params = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null) {
             params.append(line);
         }
-        System.out.println("json: " + params);
+        logger.info("json: {}", params);
         //转为Job对象
         Job job = JSON.parseObject(String.valueOf(params), Job.class);
         System.out.println(job);

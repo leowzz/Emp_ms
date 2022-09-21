@@ -1,21 +1,100 @@
 POST http://localhost/dep/updateEmp
 Content-Type: application/json
 
-{"address": "福建省厦门市",
-  "birth": "1984-10-28",
-  "cardId": "350200198410283726",
-  "dep_id": 4,
-  "dep_name": "生产部",
-  "id": 8060,
-  "job_id": 4,
-  "job_name": "财务总监",
-  "manager_id": 8003,
-  "name": "俞中竹",
+{
+  "address": "四川省成都市武侯区",
+  "birth": "1973-07-06",
+  "cardId": "510107197307068133",
+  "dep_id": 3,
+  "dep_name": "市场部",
+  "id": 8065,
+  "job_id": 16,
+  "job_name": "市场部主管",
+  "manager_id": 8004,
+  "name": "平亨",
   "passwd": "123456",
   "rate": 0.0,
-  "salary": 22000.0,
-  "sex": "女",
+  "salary": 30000.0,
+  "sex": "男",
   "tel": "18995513128"
 }
 
 ###
+POST http://localhost/dep/updateEmp
+Content-Type: application/json
+
+{
+  "address": "四川省成都市武侯区",
+  "birth": "1973-07-06",
+  "cardId": "510107197307068166",
+  "dep_id": 3,
+  "dep_name": "市场部",
+  "id": 8065,
+  "job_id": 16,
+  "job_name": "市场部主管",
+  "manager_id": 8004,
+  "name": "平亨",
+  "passwd": "123456",
+  "rate": 0.0,
+  "salary": 30000.0,
+  "sex": "男",
+  "tel": "18995513128"
+}
+
+### selectAllEmp
+GET http://localhost/dep/selectAllEmp?dep_id=1
+Accept: application/json
+
+
+### searchEmployeesByName
+GET http://localhost/dep/searchEmployeesByName?name=康世&dep_id=1
+Accept: application/json
+
+###
+GET http://localhost/dep/searchEmployeesByName?name=测试员工&dep_id=1
+Accept: application/json
+
+###
+GET http://localhost/dep/searchEmployeesByName?name=马&dep_id=1
+Accept: application/json
+
+
+### addEmp
+POST http://localhost/dep/addEmp
+Content-Type: application/json
+
+{"address":"吉林省长春市榆树市","dep_id":1,"passwd":"123456","rate":0.0,"job_name":"会计","cardId":"220182197307068166","sex":"男","name":"测试员工","birth":"1998-07-06","tel":"18266663128"}
+
+
+### selectJobNames
+GET http://localhost/dep/selectJobNames?dep_id=2
+Accept: application/json
+
+
+### selectJobInfos
+GET http://localhost/dep/selectJobInfos?dep_id=2
+Accept: application/json
+
+
+### insertJob
+POST http://localhost/dep/insertJob
+Content-Type: application/json
+
+{
+  "job_name": "测试职位",
+  "salary": 8888,
+  "dep_id": 2
+}
+
+### updateJobSalary
+POST http://localhost/dep/updateJobSalary
+Content-Type: application/json
+
+{
+  "salary": 9999,
+  "id": 41
+}
+
+### deleteEmployee
+GET http://localhost/dep/deleteEmployee?emp_id=8389
+Accept: application/json

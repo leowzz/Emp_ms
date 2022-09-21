@@ -49,9 +49,9 @@
 <body>
 
 <div id="main">
-    <el-container style="height: 720px; border: 1px solid #eee">
+    <el-container style=" border: 1px solid #eee">
     <!--<el-container style="height: 100%; border: 1px solid #eee">-->
-        <el-container>
+    <!--    <el-container>-->
             <!--页头 包括添加员工, 薪资管理, 添加职位, 按姓名搜索-->
             <el-header style="text-align: right; font-size: 12px">
                 <el-button type="primary" plain style="float: left; position: relative ;top: 10px"
@@ -232,7 +232,7 @@
             <!--员工信息表格-->
             <el-main>
                 <!--stripe: 斑马纹, border: 边框-->
-                <el-table :data="AllEmpInfo" stripe height="100%" @row-click="rowDetail" slot-scope="scope">
+                <el-table :data="AllEmpInfo" :height="tableHeight" @row-click="rowDetail" slot-scope="scope">
                     <el-table-column type="index" width="80" align="center">
                     </el-table-column>
                     <el-table-column prop="name" label="姓名" width="120" align="center" sortable>
@@ -281,6 +281,7 @@
             this.selfInfo = JSON.parse(sessionStorage.getItem("depManager"));
             this.selectAllJob();
             this.selectAll();
+
         },
         methods: {
             // 按姓名查询员工
@@ -450,6 +451,7 @@
                 tel: "15464656546"
             };
             return {
+                tableHeight: window.innerHeight - 120,
                 host: 'localhost',
                 // host: 'wzzleo.vaiwan.com',
                 selfInfo: {

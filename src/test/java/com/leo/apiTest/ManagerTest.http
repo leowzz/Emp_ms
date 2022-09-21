@@ -1,0 +1,55 @@
+### getAllDepInfo
+GET http://emp_ms/man/getAllDepInfo
+Accept: application/json
+
+### login
+POST http://localhost/man/login
+Content-Type: application/json
+
+{
+  "name": "leo",
+  "passwd": "031214"
+}
+###
+POST http://localhost/man/login
+Content-Type: application/json
+
+{
+  "name": "test",
+  "passwd": "031214"
+}
+###
+POST http://localhost/man/login
+Content-Type: application/json
+
+{
+  "name": "leo",
+  "passwd": "123456"
+}
+
+### changePasswd
+GET http://localhost/man/changePasswd?name=test&newPasswd=123456
+Accept: application/json
+
+
+### updateManagerOfDep
+GET http://localhost/man/updateManagerOfDep?d_id=1&m_id=8001
+Accept: application/json
+
+###
+GET http://localhost/man/updateManagerOfDep?d_id=10&m_id=8001
+Accept: application/json
+
+###
+GET http://localhost/man/updateManagerOfDep?d_id=1&m_id=9065
+Accept: application/json
+
+### backupDatabase
+GET http://localhost/man/backupDatabase
+Accept: application/json
+
+###
+# 3 6 2 3 2 3 1
+# 3 6 2 3 2 2 1
+
+###
