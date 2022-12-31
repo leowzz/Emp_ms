@@ -1,1 +1,6 @@
 /target/
+/.idea/
+/bak/logs/
+/bak/具体分工.md
+/bak/分工.jpg
+/src/main/webapp/element-ui/types/.nomedia

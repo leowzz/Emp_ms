@@ -24,7 +24,7 @@ Content-Type: application/json
 
 {
   "name": "leo",
-  "passwd": "123456"
+  "passwd": "031214"
 }
 
 ### changePasswd
