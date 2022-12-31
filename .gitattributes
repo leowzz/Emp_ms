@@ -1,7 +1,15 @@
+#
+# Exclude files from exporting
+#
+
+.gitattributes  export-ignore
+.gitignore      export-ignore
+
 # 不统计 目录
-src/main/webapp/* linguist-vendored
-bak/* linguist-vendored
-src/test/* linguist-vendored
+# src/main/webapp/* linguist-vendored
+# bak/* linguist-vendored
+# src/test/* linguist-vendored
+
 
 # 将js, css, html作为java统计
 # *.js linguist-language=java
@@ -12,3 +20,10 @@ src/test/* linguist-vendored
 
 # 不统计 文件
 # jquery.js linguist-vendored=false
+*.js linguist-detectable=false
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.vue linguist-detectable=false
+
+# 统计文件
+src/main/webapp/*.html linguist-detectable=false
