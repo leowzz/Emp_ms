@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department</OriginalElement>
+  <nodes>
+    <node x="-82.99999999999999" y="360.0">06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.employee</node>
+    <node x="-77.99999999999999" y="-170.0">06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.manager</node>
+    <node x="-88.49999999999999" y="164.0">06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.job</node>
+    <node x="-90.49999999999999" y="-4.0">06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.job" target="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department" relationship="REFERENCES">
+      <point x="0.0" y="-72.0" />
+      <point x="0.5" y="143.0" />
+      <point x="50.25" y="143.0" />
+      <point x="50.25" y="133.0" />
+      <point x="46.0" y="133.0" />
+      <point x="45.5" y="58.0" />
+    </edge>
+    <edge source="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.employee" target="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department" relationship="REFERENCES">
+      <point x="55.666666666666664" y="-170.0" />
+      <point x="56.166666666666686" y="334.0" />
+      <point x="100.0" y="334.0" />
+      <point x="100.0" y="143.0" />
+      <point x="50.25" y="143.0" />
+      <point x="50.25" y="133.0" />
+      <point x="46.0" y="133.0" />
+      <point x="45.5" y="58.0" />
+    </edge>
+    <edge source="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department" target="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.employee" relationship="REFERENCES">
+      <point x="-45.5" y="58.0" />
+      <point x="-45.0" y="143.0" />
+      <point x="-98.99999999999999" y="143.0" />
+      <point x="-98.99999999999999" y="334.0" />
+      <point x="-55.16666666666664" y="334.0" />
+      <point x="-55.66666666666666" y="-170.0" />
+    </edge>
+    <edge source="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department" target="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.manager" relationship="REFERENCES">
+      <point x="0.0" y="-58.0" />
+      <point x="0.0" y="58.0" />
+    </edge>
+    <edge source="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.employee" target="06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.job" relationship="REFERENCES">
+      <point x="0.0" y="-170.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+  </edges>
+  <settings layout="分层" zoom="1.0" showDependencies="false" x="136.5" y="265.0" />
+  <SelectedNodes>
+    <node>06375ad9-b8b0-4734-8281-8413f9166c55.TABLE:emp_ms.department</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>列</Category>
+    <Category>注释</Category>
+    <Category>虚拟外键</Category>
+    <Category>键列</Category>
+  </Categories>
+</Diagram>
+
