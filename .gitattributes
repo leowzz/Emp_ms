@@ -1,3 +1,12 @@
-*.js linguist-language=java
-*.css linguist-language=java
-*.html linguist-language=java
+# 将js, css, html作为java统计
+# *.js linguist-language=java
+# *.css linguist-language=java
+# *.html linguist-language=java
+
+# 不统计 目录
+src/main/webapp/* linguist-vendored
+bak/* linguist-vendored
+src/test/* linguist-vendored
+
+# 不统计 文件
+# jquery.js linguist-vendored=false
