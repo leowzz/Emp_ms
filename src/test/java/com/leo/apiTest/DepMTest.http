@@ -63,7 +63,7 @@ Accept: application/json
 POST http://localhost/dep/addEmp
 Content-Type: application/json
 
-{"address":"吉林省长春市榆树市","dep_id":1,"passwd":"123456","rate":0.0,"job_name":"会计","cardId":"220182197307068166","sex":"男","name":"测试员工","birth":"1998-07-06","tel":"18266663128"}
+{"address":"吉林省","dep_id":1,"passwd":"123456","rate":0.0,"job_name":"会计","cardId":"220182197307068166","sex":"男","name":"测试员工","birth":"1998-07-06","tel":"18266663128"}
 
 
 ### selectJobNames

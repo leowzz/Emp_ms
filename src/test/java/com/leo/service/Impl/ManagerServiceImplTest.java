@@ -40,7 +40,7 @@ public class ManagerServiceImplTest {
     public void loginTest() {
         SqlSession sqlSession = factory.openSession();
         ManagerMapper mapper = sqlSession.getMapper(ManagerMapper.class);
-        Manager m = mapper.login("leo", "031214");
+        Manager m = mapper.login("leo", "username");
         System.out.println(m);
         sqlSession.close();
     }

@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
   "id": 8001,
-  "passwd": "031214"
+  "passwd": "login"
 }
 
 ###

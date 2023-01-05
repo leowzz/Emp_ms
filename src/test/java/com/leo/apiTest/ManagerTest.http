@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
   "name": "leo",
-  "passwd": "031214"
+  "passwd": "login"
 }
 ###
 POST http://localhost/man/login
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
   "name": "test",
-  "passwd": "031214"
+  "passwd": "login"
 }
 ###
 POST http://localhost/man/login
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 {
   "name": "leo",
-  "passwd": "031214"
+  "passwd": "login"
 }
 
 ### changePasswd

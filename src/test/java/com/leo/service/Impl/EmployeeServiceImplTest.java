@@ -16,7 +16,7 @@ public class EmployeeServiceImplTest {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
         
-        Employee e = mapper.login(8001, "031214");
+        Employee e = mapper.login(8001, "login");
         System.out.println(e);
         
         sqlSession.close();
