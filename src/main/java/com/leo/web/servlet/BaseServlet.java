@@ -38,7 +38,7 @@ public class BaseServlet extends HttpServlet {
         int index = uri.lastIndexOf('/');
         String methodName = uri.substring(index + 1);
 //        System.out.println(methodName);
-        // 执行方法
+        // 执行方法v
         // 获取EmpServlet字节码对象
         Class<? extends BaseServlet> cls = this.getClass();
         // 获取方法对象

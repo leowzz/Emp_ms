@@ -1,6 +1,6 @@
 
 ###
-POST http://localhost:80/emp/login
+POST http://120.46.152.103:8080/emp/login
 Content-Type: application/json
 
 {

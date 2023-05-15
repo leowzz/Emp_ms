@@ -8,21 +8,21 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
 public class EmployeeServiceImplTest {
-    SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
-    
-    
-    @Test
-    public void login() {
-        SqlSession sqlSession = factory.openSession();
-        EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
-        
-        Employee e = mapper.login(8001, "login");
-        System.out.println(e);
-        
-        sqlSession.close();
-    }
-    
-    
+    // SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
+    //
+    //
+    // @Test
+    // public void login() {
+    //     SqlSession sqlSession = factory.openSession();
+    //     EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+    //
+    //     Employee e = mapper.login(8001, "login");
+    //     System.out.println(e);
+    //
+    //     sqlSession.close();
+    // }
+    //
+    //
     @Test
     public void updateEmp() {
     }
