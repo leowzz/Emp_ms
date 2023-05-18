@@ -12,8 +12,8 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://172.18.0.2/emp_ms"/>
-                <!--<property name="url" value="jdbc:mysql://120.46.152.103/emp_ms"/>-->
+                <property name="url" value="jdbc:mysql://172.18.0.2/emp_ms?autoReconnect=true"/>
+                <!--<property name="url" value="jdbc:mysql://120.46.152.103/emp_ms?autoReconnect=true"/>-->
                 <property name="username" value="emp"/>
                 <property name="password" value="emPr1nt"/>
             </dataSource>
