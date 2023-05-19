@@ -35,7 +35,8 @@ public class EmpServlet extends BaseServlet {
         if (emp == null) {
             logger.error("json解析错误: {}", params);
             res.getWriter().write("err");
-            return;
+            logger.info("登录失败");
+            res.getWriter().write("false");
         }
         logger.info("parsed employee: emp.id: {}, emp.passwd: {}", emp.getId(), emp.getPasswd());
         // 查询

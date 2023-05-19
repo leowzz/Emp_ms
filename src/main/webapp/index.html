@@ -23,9 +23,6 @@
                 <el-switch v-model="manager" @change="clickManager"
                            style="position: relative; left:3px;right: -50px"></el-switch>
             </label>
-            <!--            <el-form-item label="即时配送" style="background: #8c939d">-->
-            <!--                <el-switch v-model="manager"></el-switch>-->
-            <!--            </el-form-item>-->
         </div>
         <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px"
                  class="demo-userForm"
@@ -85,6 +82,7 @@
                             console.log(this.userForm);
                             axios.post("http://" + this.host + "/emp/login", this.userForm).then(resp => {
                                 console.log(resp.data);
+                                // todo 逻辑问题 空响应也会跳转
                                 if (false !== resp.data) {
                                     // 登录成功
                                     let userForm = resp.data;
