@@ -18,7 +18,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
     
     // 根据部门id查询部门下的所有员工
-    // 负责人: 范明俊
     public List<Employee> selectAllEmployees(int dep_id) {
         // 2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
@@ -33,7 +32,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 按照姓名模糊查询员工.
-    // 负责人: 范明俊
     public List<Employee> searchEmployeesByName(String name, int dep_id) {
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
@@ -44,7 +42,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 根据员工id查询员工信息
-    // 负责人: 范明俊
     public Employee selectById(int id) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -54,7 +51,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 根据员工姓名查询信息
-    // 负责人: 范明俊
     public List<Employee> selectByName(String name) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -64,7 +60,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 根据员工姓名查询员工id
-    // 负责人: 王骞
     public int selectIdByName(String name) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -74,7 +69,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 根据职位名称查询职位编号
-    // 负责人: 王骞
     public int selectJobIdByName(String name) {
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
@@ -84,7 +78,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 查询部门下所有职位名称
-    // 负责人: 王骞
     public String[] selectJobs(int dep_id) {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
@@ -98,7 +91,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 查询部门下所有职位的详细信息
-    // 负责人: 王骞
     public List<Job> selectJobInfos(int dep_id) {
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
@@ -108,7 +100,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 新建员工
-    // 负责人: 王占泽
     public void insertEmp(Employee emp) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -119,7 +110,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 新建职位
-    // 负责人: 王占泽
     public void insertJob(Job job) {
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
@@ -129,7 +119,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 更新职位薪资
-    // 负责人: 王骞
     public void updateJobSalary(Job job) {
         SqlSession sqlSession = factory.openSession();
         DepManagerMapper mapper = sqlSession.getMapper(DepManagerMapper.class);
@@ -139,7 +128,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 更新员工信息
-    // 负责人: 王占泽
     public void updateEmp(Employee emp) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
@@ -149,7 +137,6 @@ public class DepManagerServiceImpl implements DepManagerService {
     }
     
     // 删除员工
-    // 负责人: 范明俊
     public void deleteEmp(int id) {
         SqlSession sqlSession = factory.openSession();
         EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);

@@ -16,21 +16,17 @@ public interface ManagerMapper {
     @Select("select * from emp_ms.view_all_dep_info")
     List<HashMap<String,String>> selectAllDepInfo();
     
-    // 负责人: 卢鹏飞
     @Select("select * from emp_ms.manager where name = #{name} and passwd = #{passwd}")
     Manager login(@Param("name")String name, @Param("passwd") String passwd);
     
-    // 负责人: 卢鹏飞
     @Update("update emp_ms.manager set passwd = #{passwd} where name = #{name};")
     void changePasswd(@Param("name") String name, @Param("passwd") String passwd);
     
-    /*修改部门的主管
-    * 负责人: 卢鹏飞 */
+    /*修改部门的主管*/
     @Update("update emp_ms.department set manager_id = #{manager_id} where id = #{id};")
     void updateManagerOfDep(@Param("id") int dep_id, @Param("manager_id") int manager_id);
     
-    /*通过部门编号查询部门的主管
-    * 负责人: 卢鹏飞 */
+    /*通过部门编号查询部门的主管*/
     @Select("select manager_id from emp_ms.department where id = #{dep_id}")
     int selectManagerOfDep(int dep_id);
 }
