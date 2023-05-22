@@ -3,6 +3,9 @@ package com.leo.web.servlet;
 import com.leo.pojo.Employee;
 import com.leo.service.EmployeeService;
 import com.leo.service.Impl.EmployeeServiceImpl;
+import com.leo.util.AuthUtils;
+import com.leo.util.CookieUtils;
+import com.leo.util.JWTUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,17 +48,25 @@ public class BaseServlet extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // 获取请求路径
         String uri = req.getRequestURI();
-//        System.out.println(uri);
+        logger.debug("uri: {}", uri);
+        
+        if (!uri.contains("auth")) {
+            // 非登录请求, 需要验证是否登录, 直接在BaseServlet中做接口校验 [doge]
+            if (!AuthUtils.checkCookie(req.getCookies())) {
+                logger.info("未登录");
+                res.getWriter().write("api auth failed");
+                return;
+            }
+        }
         // 获取最后一个 '/' 的下标
         int index = uri.lastIndexOf('/');
         String methodName = uri.substring(index + 1);
-//        System.out.println(methodName);
+        logger.debug("methodName: {}", methodName);
         // 执行方法v
         // 获取EmpServlet字节码对象
         Class<? extends BaseServlet> cls = this.getClass();
         // 获取方法对象
         try {
-            
             Method method = cls.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             // 执行方法
             method.invoke(this, req, res);

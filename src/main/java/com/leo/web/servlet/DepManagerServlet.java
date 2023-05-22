@@ -94,7 +94,14 @@ public class DepManagerServlet extends BaseServlet {
     // 查询所有员工信息
     public void selectAllEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 1. 调用service查询
-        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
+        String dep_id1 = request.getParameter("dep_id");
+        if (dep_id1 == null) {
+            logger.debug("dep_id is null");
+            response.getWriter().write("dep_id is null");
+            return;
+        }
+        int dep_id = Integer.parseInt(dep_id1);
+        logger.debug("req.getParameter: {}", dep_id);
         List<Employee> employees = depManagerService.selectAllEmployees(dep_id);
         // 2. 转为JSON
         String jsonString = JSON.toJSONString(employees);

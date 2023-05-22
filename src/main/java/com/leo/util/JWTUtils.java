@@ -83,10 +83,12 @@ public class JWTUtils {
     // 验证token
     public static boolean verify(String token) {
         try {
+            logger.debug("verify: token: {}", token);
             JWT.require(Algorithm.HMAC256(SECRET_KEY)).build().verify(token);
+            logger.info("token验证成功");
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("token验证失败");
             return false;
         }
     }
