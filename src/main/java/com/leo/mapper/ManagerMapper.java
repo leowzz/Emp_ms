@@ -11,8 +11,7 @@ import java.util.List;
 
 // 管理员mapper
 public interface ManagerMapper {
-    /*查询所有部门信息, 包括: 部门编号, 部门名称, 部门主管编号, 部门主管姓名
-    * 负责人: 王占泽 */
+    /*查询所有部门信息, 包括: 部门编号, 部门名称, 部门主管编号, 部门主管姓名 */
     @Select("select * from emp_ms.view_all_dep_info")
     List<HashMap<String,String>> selectAllDepInfo();
     

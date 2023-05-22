@@ -26,36 +26,6 @@ public class DepManagerServlet extends BaseServlet {
     EmployeeService employeeService = new EmployeeServiceImpl();
     private static final Logger logger = LoggerFactory.getLogger(DepManagerServlet.class);
     
-    
-    // 查询所有员工信息
-    public void selectAllEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 调用service查询
-        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
-        List<Employee> employees = depManagerService.selectAllEmployees(dep_id);
-        // 2. 转为JSON
-        String jsonString = JSON.toJSONString(employees);
-        // 3. 写数据
-        response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write(jsonString);
-        
-    }
-    
-    // 通过姓名模糊查询员工信息
-    public void searchEmployeesByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String name = request.getParameter("name");
-        logger.debug("req.getParameter: {}", name);
-        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
-        // 1. 调用service查询
-        List<Employee> employees = depManagerService.searchEmployeesByName(name, dep_id);
-        System.out.println(employees);
-        // 2. 转为JSON
-        String jsonString = JSON.toJSONString(employees);
-        // 3. 写数据
-        response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write(jsonString);
-    }
-    
     /*
      * 添加员工方法
      * 通过request获取要添加的员工信息, 不包括编号
@@ -80,6 +50,57 @@ public class DepManagerServlet extends BaseServlet {
         // 3. 返回结果
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write("{\"msg\":\"success\",\"id\":" + employee.getId() + "}");
+    }
+    
+    // 新建职位
+    public void insertJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1. 接收数据
+        request.setCharacterEncoding("UTF-8");
+        BufferedReader br = request.getReader();
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
+        logger.info("json: {}", params);
+        // 转为Job对象
+        Job job = JSON.parseObject(String.valueOf(params), Job.class);
+        System.out.println(job);
+        // 2. 调用service更新
+        depManagerService.insertJob(job);
+        // 3. 返回结果
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write("{\"msg\":\"success\",\"id\":" + job.getId() + "}");
+    }
+    
+    
+    // 通过姓名模糊查询员工信息
+    public void searchEmployeesByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String name = request.getParameter("name");
+        logger.debug("req.getParameter: {}", name);
+        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
+        // 1. 调用service查询
+        List<Employee> employees = depManagerService.searchEmployeesByName(name, dep_id);
+        System.out.println(employees);
+        // 2. 转为JSON
+        String jsonString = JSON.toJSONString(employees);
+        // 3. 写数据
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+    }
+    
+    // 查询所有员工信息
+    public void selectAllEmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1. 调用service查询
+        int dep_id = Integer.parseInt(request.getParameter("dep_id"));
+        List<Employee> employees = depManagerService.selectAllEmployees(dep_id);
+        // 2. 转为JSON
+        String jsonString = JSON.toJSONString(employees);
+        // 3. 写数据
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(jsonString);
+        
     }
     
     // 获取所有职位名称
@@ -129,26 +150,6 @@ public class DepManagerServlet extends BaseServlet {
         response.getWriter().write("{\"msg\":\"success\"}");
     }
     
-    // 新建职位
-    public void insertJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 接收数据
-        request.setCharacterEncoding("UTF-8");
-        BufferedReader br = request.getReader();
-        StringBuilder params = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            params.append(line);
-        }
-        logger.info("json: {}", params);
-        // 转为Job对象
-        Job job = JSON.parseObject(String.valueOf(params), Job.class);
-        System.out.println(job);
-        // 2. 调用service更新
-        depManagerService.insertJob(job);
-        // 3. 返回结果
-        response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write("{\"msg\":\"success\",\"id\":" + job.getId() + "}");
-    }
     
     // 更新职位薪资
     public void updateJobSalary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

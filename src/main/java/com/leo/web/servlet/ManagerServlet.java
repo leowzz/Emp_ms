@@ -22,18 +22,18 @@ public class ManagerServlet extends BaseServlet {
     
     public void getAllDepInfo(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException {
-        //1. 调用service查询
+        //1. 调用service查询部门的信息
         List<HashMap<String, String>> depInfos = managerService.selectAllDepInfo();
         //2. 转为JSON
         String jsonString = JSON.toJSONString(depInfos);
-        //3. 写数据
+        //3. 写数据传递到前端
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
     
     public void login(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
-        //1. 接收数据
+        //1. 接收前端的数据
         BufferedReader br = request.getReader();
         StringBuilder params = new StringBuilder();
         String line;
@@ -44,7 +44,7 @@ public class ManagerServlet extends BaseServlet {
         //转为Manager对象
         Manager manager = JSON.parseObject(String.valueOf(params), Manager.class);
         System.out.println(manager);
-        //2. 调用service查询
+        //2. 登录模块,用来判断是否登录成功
         boolean loginFlag = managerService.login(manager.getName(), manager.getPasswd());
         if (loginFlag) {
             response.getWriter().write("success");
@@ -55,10 +55,10 @@ public class ManagerServlet extends BaseServlet {
     
     public void changePasswd(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException, IOException {
-        //1. 接收数据
+        //1. 接收前端数据(用户名和新密码)(更改密码)
         String name = request.getParameter("name");
         String newPasswd = request.getParameter("newPasswd");
-        //2. 调用service更新
+        //2. 调用service更新,返回结果
         managerService.changePasswd(name, newPasswd);
         //3. 返回结果
         response.getWriter().write("success");
@@ -71,7 +71,7 @@ public class ManagerServlet extends BaseServlet {
         int manager_id = Integer.parseInt(request.getParameter("m_id"));
         //2. 调用service更新
         boolean changeFlag = managerService.updateManagerOfDep(dep_id, manager_id);
-        //3. 返回结果
+        //3. 返回结果,告诉前端是否更新成功
         if (changeFlag)
             response.getWriter().write("success");
         else
@@ -80,7 +80,7 @@ public class ManagerServlet extends BaseServlet {
     
     public void backupDatabase(HttpServletRequest request,
                                HttpServletResponse response) throws ServletException, IOException {
-        //1. 调用service更新
+        //1. 调用service更新,返回结果
         boolean backupFlag = managerService.backupDatabase();
         //2. 返回结果
         if (backupFlag)
