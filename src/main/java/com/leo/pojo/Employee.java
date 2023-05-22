@@ -3,20 +3,20 @@ package com.leo.pojo;
 public class Employee extends User {
     private Integer id; // 员工编号
     private String name; // 员工姓名
-    private String passwd; //员工密码
-    private String age; //员工年龄
+    private String passwd; // 员工密码
+    private String age; // 员工年龄
     private Float rate; // 奖金率
     private Float salary; // 奖金率
     private String sex; // true为男性, false为女性F
     private String cardId; // 身份证号
-    private String birth; //出生日期
+    private String birth; // 出生日期
     private String address; // 籍贯
     private String tel; // 电话
     private Integer dep_id; // 部门
-    private Integer job_id; //职位
+    private Integer job_id; // 职位
     private String dep_name; // 部门名称
     private String job_name; // 职位名称
-    private Integer manager_id = null; //部门主管类型
+    private Integer manager_id = null; // 部门主管类型
     
     public Employee() {
     }
@@ -34,33 +34,6 @@ public class Employee extends User {
         this.job_id = job_id;
     }
     
-    @Override
-    public int getId() {
-        return id;
-    }
-    
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    @Override
-    public String getName() {
-        return name;
-    }
-    
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getPasswd() {
-        return passwd;
-    }
-    
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
     
     public String getAge() {
         return age;

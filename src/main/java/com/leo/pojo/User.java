@@ -1,10 +1,9 @@
 package com.leo.pojo;
 
 public class User {
-    private Integer id;
+    private Integer id=-1;
     private String name;
-    private String password;
-    
+    private String passwd;
     
     public int getId() {
         return id;
@@ -22,19 +21,19 @@ public class User {
         this.name = name;
     }
     
-    public String getPassword() {
-        return password;
+    public String getPasswd() {
+        return passwd;
     }
     
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
     
     public String toString() {
         return "People{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + passwd + '\'' +
                 '}';
     }
 }
