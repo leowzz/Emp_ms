@@ -4,6 +4,8 @@ import com.leo.pojo.Employee;
 import com.leo.service.EmployeeService;
 import com.leo.service.Impl.EmployeeServiceImpl;
 
+import com.leo.util.CookieUtils;
+import com.leo.util.JWTUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
@@ -18,11 +20,11 @@ import java.io.IOException;
 @WebServlet("/emp/*")
 public class EmpServlet extends BaseServlet {
     EmployeeService employeeService = new EmployeeServiceImpl();
+    
     private static final Logger logger = LoggerFactory.getLogger(EmpServlet.class);
     
-    public void login(HttpServletRequest req,
-                      HttpServletResponse res) throws ServletException, IOException {
-        //1. 接收数据
+    public void login(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        // 1. 接收数据
         BufferedReader br = req.getReader();
         StringBuilder params = new StringBuilder();
         String line;
@@ -30,23 +32,29 @@ public class EmpServlet extends BaseServlet {
             params.append(line);
         }
         logger.info("req read: {}", params);
-        //转为Employee对象
+        String token = CookieUtils.getCookie(req.getCookies(), "token");
+        
+        
+        // 转为Employee对象
         Employee emp = JSON.parseObject(String.valueOf(params), Employee.class);
         if (emp == null) {
             logger.error("json解析错误: {}", params);
-            res.getWriter().write("err");
+            res.getWriter().write("false");
             logger.info("登录失败");
             res.getWriter().write("false");
+            return;
         }
         logger.info("parsed employee: emp.id: {}, emp.passwd: {}", emp.getId(), emp.getPasswd());
         // 查询
         Employee loginEmp = employeeService.login(emp.getId(), emp.getPasswd());
         if (loginEmp != null) {
+            // 1. 写入cookie
+            CookieUtils.setCookie(res, "token", JWTUtils.getToken(loginEmp), 60 * 60 * 24 * 7);
             logger.info("登录成功");
             logger.info("selected employee: {}", loginEmp);
-            //2. 转为JSON
+            // 2. 转为JSON
             String jsonString = JSON.toJSONString(loginEmp);
-            //3. 写数据
+            // 3. 写数据
             res.setContentType("text/json;charset=utf-8");
             res.getWriter().write(jsonString);
         } else {
@@ -55,19 +63,18 @@ public class EmpServlet extends BaseServlet {
         }
     }
     
-    public void changePasswd(HttpServletRequest req,
-                             HttpServletResponse res) throws ServletException, IOException {
-        //1. 接收数据
+    public void changePasswd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        // 1. 接收数据
         int id = Integer.parseInt(req.getParameter("id"));
         String newPasswd = req.getParameter("newPasswd");
-        //2. 调用service更新
+        // 2. 调用service更新
         employeeService.changePasswd(id, newPasswd);
-        //3. 返回结果
+        // 3. 返回结果
         res.getWriter().write("success");
     }
     
     public void updateSelfInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //1. 接收数据
+        // 1. 接收数据
         request.setCharacterEncoding("UTF-8");
         BufferedReader br = request.getReader();
         StringBuilder params = new StringBuilder();
@@ -76,7 +83,7 @@ public class EmpServlet extends BaseServlet {
             params.append(line);
         }
         logger.info("json: {}", params);
-        //转为Employee对象
+        // 转为Employee对象
         Employee emp = JSON.parseObject(params.toString(), Employee.class);
         if (emp == null) {
             logger.error("json解析错误: {}", params);
@@ -90,9 +97,9 @@ public class EmpServlet extends BaseServlet {
             response.getWriter().write("false");
             return;
         }
-        //2. 调用service更新
+        // 2. 调用service更新
         employeeService.updateEmp(emp);
-        //3. 返回结果
+        // 3. 返回结果
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write("{\"msg\":\"success\"}");
     }

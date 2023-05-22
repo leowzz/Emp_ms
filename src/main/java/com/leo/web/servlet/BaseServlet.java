@@ -43,18 +43,22 @@ public class BaseServlet extends HttpServlet {
         Class<? extends BaseServlet> cls = this.getClass();
         // 获取方法对象
         try {
+            
             Method method = cls.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             // 执行方法
             method.invoke(this, req, res);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             logger.warn(e.getLocalizedMessage());
+            logger.warn("没有找到方法: {}", methodName);
         } catch (InvocationTargetException e) {
             e.printStackTrace();
             logger.warn(e.getLocalizedMessage());
+            logger.warn("方法执行失败: {}", methodName);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             logger.warn(e.getLocalizedMessage());
+            logger.warn("方法不可访问: {}", methodName);
         } catch (Exception e) {
             e.printStackTrace();
             logger.warn(e.getLocalizedMessage());

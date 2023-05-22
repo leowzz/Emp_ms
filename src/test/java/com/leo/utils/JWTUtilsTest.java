@@ -1,6 +1,6 @@
 package com.leo.utils;
 
-import com.leo.pojo.People;
+import com.leo.pojo.User;
 import com.leo.util.JWTUtils;
 import org.junit.Test;
 
@@ -14,9 +14,12 @@ public class JWTUtilsTest {
     
     @Test
     public void testDeJWT() {
-        String jwt = JWTUtils.getToken("leo", "123456");
+        User u = new User();
+        u.setName("leo");
+        u.setPasswd("123456123456");
+        String jwt = JWTUtils.getToken(u);
         System.out.println(jwt);
-        People people = JWTUtils.deToken(jwt);
-        System.out.println(people);
+        User user = JWTUtils.deToken(jwt);
+        System.out.println(user);
     }
 }
