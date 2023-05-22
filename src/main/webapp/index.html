@@ -57,7 +57,7 @@
             loginByCookie() {
                 axios.get("http://" + this.host + "/auth/ck_login").then(resp => {
                     console.log(resp)
-                    if (resp.data !== 'false') {
+                    if (resp.data === 'false') {
                         return;
                     }
                     if (resp.data.id === -1) {
