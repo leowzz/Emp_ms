@@ -1,6 +1,6 @@
 package com.leo.pojo;
 
-public class Employee extends People {
+public class Employee extends User {
     private Integer id; // 员工编号
     private String name; // 员工姓名
     private String passwd; //员工密码

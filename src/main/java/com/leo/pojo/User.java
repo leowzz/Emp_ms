@@ -1,8 +1,6 @@
 package com.leo.pojo;
 
-import java.util.Scanner;
-
-public class People {
+public class User {
     private Integer id;
     private String name;
     private String password;

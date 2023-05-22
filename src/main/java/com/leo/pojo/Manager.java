@@ -1,6 +1,6 @@
 package com.leo.pojo;
 
-public class Manager extends People {
+public class Manager extends User {
     private int id; // 管理员id
     private String name; // 管理员姓名
     private String passwd; // 管理员密码
