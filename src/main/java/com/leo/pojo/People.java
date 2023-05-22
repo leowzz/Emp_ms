@@ -24,14 +24,19 @@ public class People {
         this.name = name;
     }
     
+    public String getPassword() {
+        return password;
+    }
     
-//    public void setPassword(String passwd) {
-//        Scanner scanner = new Scanner(System.in);
-//        String re_enter = scanner.next();
-//        if (re_enter.equals(passwd)) {
-//            this.password = passwd;
-//        } else
-//            System.out.println("两次密码不一致, 设置失败");
-//    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
+    public String toString() {
+        return "People{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
