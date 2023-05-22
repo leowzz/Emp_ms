@@ -62,6 +62,7 @@ public class AuthServlet extends BaseServlet {
                 res.getWriter().write("false");
                 return;
             }
+            logger.info("登录成功: {}", emp);
             res.setContentType("text/json;charset=utf-8");
             res.getWriter().write(JSON.toJSONString(emp));
         }

@@ -27,7 +27,29 @@ public class Manager extends User {
         // 用户类型
         return "管理员";
     }
+    public int getId() {
+        return id;
+    }
     
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getPasswd() {
+        return passwd;
+    }
+    
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
     @Override
     public String toString() {
         return "Manager{" +
