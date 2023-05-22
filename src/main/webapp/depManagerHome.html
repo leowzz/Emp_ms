@@ -50,219 +50,219 @@
 
 <div id="main">
     <el-container style=" border: 1px solid #eee">
-    <!--<el-container style="height: 100%; border: 1px solid #eee">-->
-    <!--    <el-container>-->
-            <!--页头 包括添加员工, 薪资管理, 添加职位, 按姓名搜索-->
-            <el-header style="text-align: right; font-size: 12px">
-                <el-button type="primary" plain style="float: left; position: relative ;top: 10px"
-                           @click="addEmployeeButton">添加员工
-                </el-button>
-                <el-button type="primary" plain style="float: left; position: relative ;top: 10px; left: 10px"
-                           @click="reviseJobSalary">薪资管理
-                </el-button>
-                <el-button type="primary" plain style="float: left; position: relative ;top: 10px; left: 20px"
-                           @click="addJobButton">添加职位
-                </el-button>
-                <!--行内搜索表单-->
-                <el-form :inline="true"
-                         :model="queryInfo"
-                         label-position="middle" class="demo-form-inline"
-                         style="width:200px; height: 60px; position:relative; margin: auto;float: left;left: 100px">
-                    <el-form-item label="员工姓名" style="height:100%">
-                        <el-input v-model="queryInfo.name" placeholder="员工姓名"
-                                  style="width:120px; height:60px;float: left ; position: relative ;top: 10px"></el-input>
-                    </el-form-item>
-                    <el-form-item style="float: left; position: absolute; right: -100px; top: 10px">
-                        <el-button type="primary" @click="query">查询</el-button>
-                    </el-form-item>
-                </el-form>
-                <div style="float: left; position: relative; right: -400px">
-                    <span style="text-align: center; font-size: 30px;">{{this.selfInfo.name}}, 欢迎您</span>
-                </div>
-                <el-button type="danger" round @click="logout">退出登录</el-button>
-            </el-header>
+        <!--<el-container style="height: 100%; border: 1px solid #eee">-->
+        <!--    <el-container>-->
+        <!--页头 包括添加员工, 薪资管理, 添加职位, 按姓名搜索-->
+        <el-header style="text-align: right; font-size: 12px">
+            <el-button type="primary" plain style="float: left; position: relative ;top: 10px"
+                       @click="addEmployeeButton">添加员工
+            </el-button>
+            <el-button type="primary" plain style="float: left; position: relative ;top: 10px; left: 10px"
+                       @click="reviseJobSalary">薪资管理
+            </el-button>
+            <el-button type="primary" plain style="float: left; position: relative ;top: 10px; left: 20px"
+                       @click="addJobButton">添加职位
+            </el-button>
+            <!--行内搜索表单-->
+            <el-form :inline="true"
+                     :model="queryInfo"
+                     label-position="middle" class="demo-form-inline"
+                     style="width:200px; height: 60px; position:relative; margin: auto;float: left;left: 100px">
+                <el-form-item label="员工姓名" style="height:100%">
+                    <el-input v-model="queryInfo.name" placeholder="员工姓名"
+                              style="width:120px; height:60px;float: left ; position: relative ;top: 10px"></el-input>
+                </el-form-item>
+                <el-form-item style="float: left; position: absolute; right: -100px; top: 10px">
+                    <el-button type="primary" @click="query">查询</el-button>
+                </el-form-item>
+            </el-form>
+            <div style="float: left; position: relative; right: -400px">
+                <span style="text-align: center; font-size: 30px;">{{this.selfInfo.name}}, 欢迎您</span>
+            </div>
+            <el-button type="danger" round @click="logout">退出登录</el-button>
+        </el-header>
 
-            <!--职位薪资管理表单-->
-            <el-dialog
-                    title="职位工资管理"
-                    :visible.sync="reviseJobSalaryVisible"
-                    width="20%">
-                <el-form ref="form" :model="reviseJobSalaryData" label-width="45px">
-                    <el-form-item label="职位">
-                        <el-select v-model="reviseJobSalaryData.job_name" placeholder="请选择员工职位">
-                            <el-option v-for="job in jobList" :value="job.job_name"
-                            >{{job.job_name}}: {{job.salary}}
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="薪资">
-                        <el-input v-model="reviseJobSalaryData.salary" size="medium" style="width: 100%"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="submitJobSalary">修改</el-button>
-                        <el-button @click="reviseJobSalaryVisible = false">取消</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-dialog>
-            <!--添加职位表单-->
-            <el-dialog
-                    title="添加职位"
-                    :visible.sync="addJobVisible"
-                    width="20%">
-                <el-form ref="form" :model="newJob" label-width="80px">
-                    <el-form-item label="职位名称">
-                        <el-input v-model="newJob.job_name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="职位薪资">
-                        <el-input v-model="newJob.salary"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="submitNewJob">修改</el-button>
-                        <el-button @click="addJobVisible = false">取消</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-dialog>
-            <!--添加员工表单-->
-            <el-dialog
-                    title="添加员工"
-                    :visible.sync="dialogVisible"
-                    width="30%" style="margin-top: -80px">
-                <el-form ref="form" :model="newEmpInfo" label-width="80px">
-                    <el-form-item label="员工名称">
-                        <el-input v-model="newEmpInfo.name"></el-input>
-                    </el-form-item>
+        <!--职位薪资管理表单-->
+        <el-dialog
+                title="职位工资管理"
+                :visible.sync="reviseJobSalaryVisible"
+                width="20%">
+            <el-form ref="form" :model="reviseJobSalaryData" label-width="45px">
+                <el-form-item label="职位">
+                    <el-select v-model="reviseJobSalaryData.job_name" placeholder="请选择员工职位">
+                        <el-option v-for="job in jobList" :value="job.job_name"
+                        >{{job.job_name}}: {{job.salary}}
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="薪资">
+                    <el-input v-model="reviseJobSalaryData.salary" size="medium" style="width: 100%"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitJobSalary">修改</el-button>
+                    <el-button @click="reviseJobSalaryVisible = false">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+        <!--添加职位表单-->
+        <el-dialog
+                title="添加职位"
+                :visible.sync="addJobVisible"
+                width="20%">
+            <el-form ref="form" :model="newJob" label-width="80px">
+                <el-form-item label="职位名称">
+                    <el-input v-model="newJob.job_name"></el-input>
+                </el-form-item>
+                <el-form-item label="职位薪资">
+                    <el-input v-model="newJob.salary"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitNewJob">修改</el-button>
+                    <el-button @click="addJobVisible = false">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+        <!--添加员工表单-->
+        <el-dialog
+                title="添加员工"
+                :visible.sync="dialogVisible"
+                width="30%" style="margin-top: -80px">
+            <el-form ref="form" :model="newEmpInfo" label-width="80px">
+                <el-form-item label="员工名称">
+                    <el-input v-model="newEmpInfo.name"></el-input>
+                </el-form-item>
 
-                    <el-form-item label="员工密码">
-                        <el-input v-model="newEmpInfo.passwd" value="123456"></el-input>
-                    </el-form-item>
+                <el-form-item label="员工密码">
+                    <el-input v-model="newEmpInfo.passwd" value="123456"></el-input>
+                </el-form-item>
 
-                    <el-form-item label="出生日期">
-                        <el-col>
-                            <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
-                                            v-model="newEmpInfo.birth" style="width: 100%;"></el-date-picker>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="性别">
-                        <el-radio-group v-model="newEmpInfo.sex">
-                            <el-radio label="男"></el-radio>
-                            <el-radio label="女"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="联系方式">
-                        <el-input v-model="newEmpInfo.tel"></el-input>
-                    </el-form-item>
-                    <el-form-item label="身份证号">
-                        <el-input v-model="newEmpInfo.cardId" placeholder="身份证号"></el-input>
-                    </el-form-item>
-                    <el-form-item label="联系地址">
-                        <el-input v-model="newEmpInfo.address"></el-input>
-                    </el-form-item>
-                    <el-form-item label="职位" :data="jobs">
-                        <el-select v-model="newEmpInfo.job_name" placeholder="请选择员工职位">
-                            <el-option v-for="job in jobs" :value="job">{{job}}</el-option>
-                        </el-select>
-                    </el-form-item>
+                <el-form-item label="出生日期">
+                    <el-col>
+                        <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
+                                        v-model="newEmpInfo.birth" style="width: 100%;"></el-date-picker>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="性别">
+                    <el-radio-group v-model="newEmpInfo.sex">
+                        <el-radio label="男"></el-radio>
+                        <el-radio label="女"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="联系方式">
+                    <el-input v-model="newEmpInfo.tel"></el-input>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                    <el-input v-model="newEmpInfo.cardId" placeholder="身份证号"></el-input>
+                </el-form-item>
+                <el-form-item label="联系地址">
+                    <el-input v-model="newEmpInfo.address"></el-input>
+                </el-form-item>
+                <el-form-item label="职位" :data="jobs">
+                    <el-select v-model="newEmpInfo.job_name" placeholder="请选择员工职位">
+                        <el-option v-for="job in jobs" :value="job">{{job}}</el-option>
+                    </el-select>
+                </el-form-item>
 
-                    <el-form-item>
-                        <el-button type="primary" @click="submitEmployee">添加</el-button>
-                        <el-button @click="dialogVisible = false">取消</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-dialog>
-            <!--员工详细信息表单-->
-            <el-dialog title="员工信息"
-                       :visible.sync="detailInfoVisible"
-                       width="30%" style="margin-top: -120px">
-                <el-form ref="form" :model="detailInfoData" label-width="80px">
-                    <el-form-item label="员工名称">
-                        <el-input v-model="detailInfoData.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="员工密码">
-                        <el-input v-model="detailInfoData.passwd" value="123456"></el-input>
-                    </el-form-item>
-                    <el-form-item label="出生日期">
-                        <el-col>
-                            <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
-                                            v-model="detailInfoData.birth" style="width: 100%;"></el-date-picker>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="性别">
-                        <el-radio-group v-model="detailInfoData.sex">
-                            <el-radio label="男"></el-radio>
-                            <el-radio label="女"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="奖金率">
-                        <el-input v-model="detailInfoData.rate"></el-input>
-                    </el-form-item>
-                    <el-form-item label="工资">
-                        <span>{{detailInfoData.salary}}</span>
-                        <!-- <el-input v-model="detailInfoData.salary"></el-input>-->
-                    </el-form-item>
-                    <el-form-item label="联系方式">
-                        <el-input v-model="detailInfoData.tel"></el-input>
-                    </el-form-item>
-                    <el-form-item label="身份证号">
-                        <el-input v-model="detailInfoData.cardId" placeholder="身份证号"></el-input>
-                    </el-form-item>
-                    <el-form-item label="联系地址">
-                        <el-input v-model="detailInfoData.address"></el-input>
-                    </el-form-item>
-                    <el-form-item label="职位" :data="jobs">
-                        <el-select v-model="detailInfoData.job_name" placeholder="请选择员工职位">
-                            <el-option v-for="job in jobs" :value="job">{{job}}</el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="reviseEmp">提交</el-button>
-                        <el-button @click="detailInfoVisible = false">取消</el-button>
-                    </el-form-item>
-                </el-form>
-                <!--                <el-descriptions title="垂直带边框列表" direction="vertical" :column="4" border>-->
-                <!--                    <el-descriptions-item label="用户名">{{detailInfoData.id}}</el-descriptions-item>-->
-                <!--                    <el-descriptions-item label="手机号">18100000000</el-descriptions-item>-->
-                <!--                    <el-descriptions-item label="居住地" :span="2">苏州市</el-descriptions-item>-->
-                <!--                    <el-descriptions-item label="备注">-->
-                <!--                        <el-tag size="small">学校</el-tag>-->
-                <!--                    </el-descriptions-item>-->
-                <!--                    <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>-->
-                <!--                </el-descriptions>-->
-            </el-dialog>
+                <el-form-item>
+                    <el-button type="primary" @click="submitEmployee">添加</el-button>
+                    <el-button @click="dialogVisible = false">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+        <!--员工详细信息表单-->
+        <el-dialog title="员工信息"
+                   :visible.sync="detailInfoVisible"
+                   width="30%" style="margin-top: -120px">
+            <el-form ref="form" :model="detailInfoData" label-width="80px">
+                <el-form-item label="员工名称">
+                    <el-input v-model="detailInfoData.name"></el-input>
+                </el-form-item>
+                <el-form-item label="员工密码">
+                    <el-input v-model="detailInfoData.passwd" value="123456"></el-input>
+                </el-form-item>
+                <el-form-item label="出生日期">
+                    <el-col>
+                        <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="选择日期"
+                                        v-model="detailInfoData.birth" style="width: 100%;"></el-date-picker>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="性别">
+                    <el-radio-group v-model="detailInfoData.sex">
+                        <el-radio label="男"></el-radio>
+                        <el-radio label="女"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="奖金率">
+                    <el-input v-model="detailInfoData.rate"></el-input>
+                </el-form-item>
+                <el-form-item label="工资">
+                    <span>{{detailInfoData.salary}}</span>
+                    <!-- <el-input v-model="detailInfoData.salary"></el-input>-->
+                </el-form-item>
+                <el-form-item label="联系方式">
+                    <el-input v-model="detailInfoData.tel"></el-input>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                    <el-input v-model="detailInfoData.cardId" placeholder="身份证号"></el-input>
+                </el-form-item>
+                <el-form-item label="联系地址">
+                    <el-input v-model="detailInfoData.address"></el-input>
+                </el-form-item>
+                <el-form-item label="职位" :data="jobs">
+                    <el-select v-model="detailInfoData.job_name" placeholder="请选择员工职位">
+                        <el-option v-for="job in jobs" :value="job">{{job}}</el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="reviseEmp">提交</el-button>
+                    <el-button @click="detailInfoVisible = false">取消</el-button>
+                </el-form-item>
+            </el-form>
+            <!--                <el-descriptions title="垂直带边框列表" direction="vertical" :column="4" border>-->
+            <!--                    <el-descriptions-item label="用户名">{{detailInfoData.id}}</el-descriptions-item>-->
+            <!--                    <el-descriptions-item label="手机号">18100000000</el-descriptions-item>-->
+            <!--                    <el-descriptions-item label="居住地" :span="2">苏州市</el-descriptions-item>-->
+            <!--                    <el-descriptions-item label="备注">-->
+            <!--                        <el-tag size="small">学校</el-tag>-->
+            <!--                    </el-descriptions-item>-->
+            <!--                    <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>-->
+            <!--                </el-descriptions>-->
+        </el-dialog>
 
-            <!--员工信息表格-->
-            <el-main>
-                <!--stripe: 斑马纹, border: 边框-->
-                <el-table :data="AllEmpInfo" :height="tableHeight" @row-click="rowDetail" slot-scope="scope">
-                    <el-table-column type="index" width="80" align="center">
-                    </el-table-column>
-                    <el-table-column prop="name" label="姓名" width="120" align="center" sortable>
-                    </el-table-column>
-                    <el-table-column prop="id" label="工号" width="90" align="center" sortable>
-                    </el-table-column>
-                    <el-table-column prop="sex" label="性别" width="80" align="center" sortable>
-                    </el-table-column>
-                    <el-table-column prop="tel" label="电话号码" width="200" align="center">
-                    </el-table-column>
-                    <el-table-column prop="birth" label="出生日期" width="150" align="center" sortable>
-                    </el-table-column>
-                    <el-table-column prop="address" label="地址" align="center">
-                    </el-table-column>
-                    <el-table-column prop="job_name" label="职位" width="150" align="center" sortable>
-                    </el-table-column>
-                    <el-table-column align="center" label="查看" width="120">
-                        <template>
-                            <el-button type="success" @click="detailInfo(scope.row)">详细信息</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column align="center" label="操作" width="120">
-                        <template slot-scope="scope">
-                            <!--<el-button type="primary" @click="detailInfo(scope.row)">修改</el-button>-->
-                            <el-button type="danger" @click.stop="deleteEmpById(scope.row)">删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </el-main>
-        </el-container>
+        <!--员工信息表格-->
+        <el-main>
+            <!--stripe: 斑马纹, border: 边框-->
+            <el-table :data="AllEmpInfo" :height="tableHeight" @row-click="rowDetail" slot-scope="scope">
+                <el-table-column type="index" width="80" align="center">
+                </el-table-column>
+                <el-table-column prop="name" label="姓名" width="120" align="center" sortable>
+                </el-table-column>
+                <el-table-column prop="id" label="工号" width="90" align="center" sortable>
+                </el-table-column>
+                <el-table-column prop="sex" label="性别" width="80" align="center" sortable>
+                </el-table-column>
+                <el-table-column prop="tel" label="电话号码" width="200" align="center">
+                </el-table-column>
+                <el-table-column prop="birth" label="出生日期" width="150" align="center" sortable>
+                </el-table-column>
+                <el-table-column prop="address" label="地址" align="center">
+                </el-table-column>
+                <el-table-column prop="job_name" label="职位" width="150" align="center" sortable>
+                </el-table-column>
+                <el-table-column align="center" label="查看" width="120">
+                    <template>
+                        <el-button type="success" @click="detailInfo(scope.row)">详细信息</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" label="操作" width="120">
+                    <template slot-scope="scope">
+                        <!--<el-button type="primary" @click="detailInfo(scope.row)">修改</el-button>-->
+                        <el-button type="danger" @click.stop="deleteEmpById(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-main>
+    </el-container>
     </el-container>
 
 </div>
@@ -299,6 +299,11 @@
             // 退出登录
             logout() {
                 sessionStorage.clear();
+                axios.get("http://" + this.host + "/auth/logout").then(res => {
+                    if ("success" === res.data) {
+                        this.success("退出成功");
+                    }
+                });
                 location.href = "index.html";
             },
             // 点击每行的详细信息

@@ -114,16 +114,16 @@ public class AuthServlet extends BaseServlet {
         return String.valueOf(params);
     }
     
-    public void emp_logout(HttpServletRequest req, HttpServletResponse res) {
-    
+    public void logout(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        CookieUtils.delCookie(res, "token");
+        logger.info("注销登录");
+        res.setContentType("text/json;charset=utf-8");
+        res.getWriter().write("success");
     }
     
     public void admin_login(HttpServletRequest req, HttpServletResponse res) {
     
     }
     
-    public void admin_logout(HttpServletRequest req, HttpServletResponse res) {
-    
-    }
     
 }

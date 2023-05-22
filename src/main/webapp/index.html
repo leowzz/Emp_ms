@@ -113,17 +113,17 @@
                                 if (false !== resp.data) {
                                     // 登录成功
                                     let userForm = resp.data;
-                                    // // 判断员工类型
-                                    // if (userForm.id === userForm.manager_id) {
-                                    //     // 跳转到部门主管页面
-                                    //     // 结构变革: 登录时调用api, 在servlet中设置session, 而不返回用户信息, 只返回登录状态
-                                    //     sessionStorage.setItem('depManager', JSON.stringify(resp.data));
-                                    //     window.location.href = 'depManagerHome.html';
-                                    // } else {
-                                    //     // 跳转到员工页面
-                                    //     sessionStorage.setItem('employee', JSON.stringify(resp.data));
-                                    //     window.location.href = 'empHome.html';
-                                    // }
+                                    // 判断员工类型
+                                    if (userForm.id === userForm.manager_id) {
+                                        // 跳转到部门主管页面
+                                        // 结构变革: 登录时调用api, 在servlet中设置session, 而不返回用户信息, 只返回登录状态
+                                        sessionStorage.setItem('depManager', JSON.stringify(resp.data));
+                                        window.location.href = 'depManagerHome.html';
+                                    } else {
+                                        // 跳转到员工页面
+                                        sessionStorage.setItem('employee', JSON.stringify(resp.data));
+                                        window.location.href = 'empHome.html';
+                                    }
                                 } else
                                     this.$message.error('登录失败, 用户名或密码错误');
                             })
