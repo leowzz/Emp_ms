@@ -287,7 +287,12 @@
             },
             logout() {
                 sessionStorage.clear();
-                window.location.href = "index.html";
+                axios.get("http://" + this.host + "/auth/logout").then(res => {
+                    if ("success" === res.data) {
+                        this.success("退出成功");
+                    }
+                });
+                location.href = "index.html";
             },
         },
         data() {
