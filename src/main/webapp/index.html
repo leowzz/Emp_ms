@@ -57,7 +57,7 @@
             loginByCookie() {
                 axios.get("http://" + this.host + "/auth/ck_login").then(resp => {
                     console.log(resp)
-                    if (resp.data === 'false') {
+                    if (false === resp.data) {
                         return;
                     }
                     if (resp.data.id === -1) {
@@ -95,7 +95,7 @@
                             this.userForm.name = this.userForm.id;
                             this.userForm.id = null;
                             // this.userForm.id = 'null';
-                            axios.post("http://" + this.host + "/man/login", this.userForm).then(resp => {
+                            axios.post("http://" + this.host + "/auth/admin_login", this.userForm).then(resp => {
                                 console.log(resp.data);
                                 if ('success' === resp.data) {
                                     sessionStorage.setItem('managerInfo', JSON.stringify(this.userForm));
@@ -107,7 +107,7 @@
                             // 员工登录
                             this.userForm.id = Number(this.userForm.id)
                             console.log(this.userForm);
-                            axios.post("http://" + this.host + "/emp/login", this.userForm).then(resp => {
+                            axios.post("http://" + this.host + "/auth/emp_login", this.userForm).then(resp => {
                                 console.log(resp.data);
                                 // todo 逻辑问题 空响应也会跳转
                                 if (false !== resp.data) {

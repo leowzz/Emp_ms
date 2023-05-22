@@ -23,46 +23,6 @@ public class EmpServlet extends BaseServlet {
     
     private static final Logger logger = LoggerFactory.getLogger(EmpServlet.class);
     
-    public void login(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        // 1. 接收数据
-        BufferedReader br = req.getReader();
-        StringBuilder params = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            params.append(line);
-        }
-        logger.info("req read: {}", params);
-        String token = CookieUtils.getCookie(req.getCookies(), "token");
-        
-        
-        // 转为Employee对象
-        Employee emp = JSON.parseObject(String.valueOf(params), Employee.class);
-        if (emp == null) {
-            logger.error("json解析错误: {}", params);
-            res.getWriter().write("false");
-            logger.info("登录失败");
-            res.getWriter().write("false");
-            return;
-        }
-        logger.info("parsed employee: emp.id: {}, emp.passwd: {}", emp.getId(), emp.getPasswd());
-        // 查询
-        Employee loginEmp = employeeService.login(emp.getId(), emp.getPasswd());
-        if (loginEmp != null) {
-            // 1. 写入cookie
-            CookieUtils.setCookie(res, "token", JWTUtils.getToken(loginEmp), 60 * 60 * 24 * 7);
-            logger.info("登录成功");
-            logger.info("selected employee: {}", loginEmp);
-            // 2. 转为JSON
-            String jsonString = JSON.toJSONString(loginEmp);
-            // 3. 写数据
-            res.setContentType("text/json;charset=utf-8");
-            res.getWriter().write(jsonString);
-        } else {
-            logger.info("登录失败");
-            res.getWriter().write("false");
-        }
-    }
-    
     public void changePasswd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // 1. 接收数据
         int id = Integer.parseInt(req.getParameter("id"));
