@@ -37,7 +37,14 @@ public class AuthServlet extends BaseServlet {
             res.getWriter().write("false");
             return;
         }
-        User user = JWTUtils.deToken(token);
+        User user = null;
+        try {
+            user = JWTUtils.deToken(token);
+        } catch (Exception e) {
+            logger.debug("token解析失败");
+            res.getWriter().write("false");
+            return;
+        }
         if (user == null) {
             logger.debug("token解析失败");
             res.getWriter().write("false");
@@ -121,8 +128,27 @@ public class AuthServlet extends BaseServlet {
         res.getWriter().write("success");
     }
     
-    public void admin_login(HttpServletRequest req, HttpServletResponse res) {
-    
+    public void admin_login(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        String params = getParams(req);
+        logger.debug("params: {}", params);
+        User user = JSON.parseObject(params, User.class);
+        logger.debug("user: {}", user);
+        if (user == null) {
+            logger.error("json解析错误: {}", params);
+            res.getWriter().write("false");
+            return;
+        }
+        if (!managerService.login(user.getName(), user.getPasswd())) {
+            logger.info("登录失败");
+            res.getWriter().write("false");
+            return;
+        }
+        // 写入cookie
+        String token = JWTUtils.getToken(user);
+        logger.debug("token: {}", token);
+        CookieUtils.setCookie(res, "token", token, 60 * 60 * 24 * 7);
+        res.getWriter().write("success");
+        logger.info("登录成功");
     }
     
     

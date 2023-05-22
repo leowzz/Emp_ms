@@ -62,7 +62,7 @@
                     }
                     if (resp.data.id === -1) {
                         // 管理员默认id为-1
-                        sessionStorage.setItem('managerInfo', resp.data);
+                        sessionStorage.setItem('managerInfo', JSON.stringify(resp.data));
                         window.location.href = 'managerHome.html';
                     } else {
                         // 登录成功
@@ -89,13 +89,17 @@
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
+                    var form;
                     if (valid) {
                         if (this.manager) {
                             // 管理员登录
                             this.userForm.name = this.userForm.id;
-                            this.userForm.id = null;
-                            // this.userForm.id = 'null';
-                            axios.post("http://" + this.host + "/auth/admin_login", this.userForm).then(resp => {
+                            form = {
+                                name: this.userForm.name,
+                                passwd: this.userForm.passwd,
+                                id: -1
+                            }
+                            axios.post("http://" + this.host + "/auth/admin_login", form).then(resp => {
                                 console.log(resp.data);
                                 if ('success' === resp.data) {
                                     sessionStorage.setItem('managerInfo', JSON.stringify(this.userForm));

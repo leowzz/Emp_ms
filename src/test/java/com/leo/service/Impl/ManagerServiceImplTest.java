@@ -3,6 +3,7 @@ package com.leo.service.Impl;
 import com.alibaba.fastjson.JSON;
 import com.leo.mapper.ManagerMapper;
 import com.leo.pojo.Manager;
+import com.leo.service.ManagerService;
 import com.leo.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.io.IOException;
 
 public class ManagerServiceImplTest {
+    ManagerService managerService = new ManagerServiceImpl();
 //     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
 //
 //     @Test
@@ -77,7 +79,8 @@ public class ManagerServiceImplTest {
     }
 
     @Test
-    public void backupDatabase() {
+    public void backupDatabase() throws IOException {
+        // System.out.println(managerService.backupDatabase());
     }
 
 }

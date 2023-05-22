@@ -104,7 +104,7 @@ public class ManagerServiceImpl implements ManagerService {
         }
         try {
             String fileName = get_time() + ".txt";
-            String command = "cmd /c mysqldump -u leo -p031214 --set-charset=UTF8 emp_ms > " + savePath + fileName;
+            String command = "cmd /c mysqldump -u emp -pemPr1nt --set-charset=UTF8 emp_ms > " + savePath + fileName;
             Process process = Runtime.getRuntime().exec(command);
             if (process.waitFor() == 0) {
                 // 0 表示线程正常终止。
