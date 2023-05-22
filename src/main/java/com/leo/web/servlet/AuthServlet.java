@@ -37,14 +37,7 @@ public class AuthServlet extends BaseServlet {
             res.getWriter().write("false");
             return;
         }
-        User user = null;
-        try {
-            user = JWTUtils.deToken(token);
-        } catch (Exception e) {
-            logger.debug("token解析失败");
-            res.getWriter().write("false");
-            return;
-        }
+        User user = JWTUtils.deToken(token);
         if (user == null) {
             logger.debug("token解析失败");
             res.getWriter().write("false");
@@ -98,7 +91,7 @@ public class AuthServlet extends BaseServlet {
                     60 * 60 * 24 * 7
             );
             logger.info("登录成功");
-            logger.info("selected employee: {}", loginEmp);
+            logger.debug("selected employee: {}", loginEmp);
             // 2. 转为JSON
             String jsonString = JSON.toJSONString(loginEmp);
             // 3. 写数据
@@ -108,17 +101,6 @@ public class AuthServlet extends BaseServlet {
         }
         logger.info("登录失败");
         res.getWriter().write("false");
-    }
-    
-    private static String getParams(HttpServletRequest req) throws IOException {
-        BufferedReader br = req.getReader();
-        StringBuilder params = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            params.append(line);
-        }
-        logger.info("req read: {}", params);
-        return String.valueOf(params);
     }
     
     public void logout(HttpServletRequest req, HttpServletResponse res) throws IOException {

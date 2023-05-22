@@ -31,28 +31,6 @@ public class ManagerServlet extends BaseServlet {
         response.getWriter().write(jsonString);
     }
     
-    public void login(HttpServletRequest request,
-                      HttpServletResponse response) throws ServletException, IOException {
-        //1. 接收前端的数据
-        BufferedReader br = request.getReader();
-        StringBuilder params = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            params.append(line);
-        }
-        System.out.println(params);
-        //转为Manager对象
-        Manager manager = JSON.parseObject(String.valueOf(params), Manager.class);
-        System.out.println(manager);
-        //2. 登录模块,用来判断是否登录成功
-        boolean loginFlag = managerService.login(manager.getName(), manager.getPasswd());
-        if (loginFlag) {
-            response.getWriter().write("success");
-        } else {
-            response.getWriter().write("fail");
-        }
-    }
-    
     public void changePasswd(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException, IOException {
         //1. 接收前端数据(用户名和新密码)(更改密码)

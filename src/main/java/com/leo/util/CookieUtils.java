@@ -24,7 +24,7 @@ public class CookieUtils {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(name)) {
                     res = cookie.getValue();
-                    logger.info("cookie: name:{}, value: {}", name, res);
+                    logger.debug("cookie: name:{}, value: {}", name, res);
                 }
             }
         }
@@ -32,6 +32,7 @@ public class CookieUtils {
     }
     
     public static void delCookie(HttpServletResponse res, String name) {
+        logger.debug("delCookie: name: {}", name);
         Cookie cookie = new Cookie(name, null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
@@ -46,6 +47,7 @@ public class CookieUtils {
     }
     
     public static void setCookie(HttpServletResponse res, String name, String value, int maxAge) {
+        logger.debug("setCookie: name: {}, value: {}, maxAge: {}", name, value, maxAge);
         Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");

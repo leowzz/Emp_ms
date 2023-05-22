@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,6 +28,17 @@ public class BaseServlet extends HttpServlet {
             return false;
         }
         return true;
+    }
+    
+    public static String getParams(HttpServletRequest req) throws IOException {
+        BufferedReader br = req.getReader();
+        StringBuilder params = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            params.append(line);
+        }
+        logger.info("req read: {}", params);
+        return String.valueOf(params);
     }
     
     @Override
